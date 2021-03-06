@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,6 +11,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { useTheme } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -29,10 +30,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ResponsiveDialog() {
+export default function ResponsiveDialog(props) {
     const [open, setOpen] = React.useState(false);
+    const [classid,setClassid] = useState("");
+    const [name,setName]=useState("");
+    const [due,setDue]=useState("");
 
     // const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    useEffect(()=>{
+      console.log(props.classid);
+      setClassid(props.classid)
+    },[])
+
+
 
     const theme = createMuiTheme({
         palette: {
@@ -41,6 +52,40 @@ export default function ResponsiveDialog() {
             }
         }
     });
+
+    const onChangeName=(e)=>{
+      const n=e.target.value;
+      setName(n);
+    }
+
+    const onChangeDue=(e)=>{
+      const n=e.target.value;
+      setDue(n);
+    }
+
+    const onAddAssignment=(e)=>{
+      e.preventDefault();
+
+      const config = {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.token,
+          },
+        }
+
+      const body={
+        id:classid,
+        name:name,
+        subject:props.sub,
+        due:due
+      }
+
+      console.log(body);
+      axios.post("http://localhost:5000/api/assignment/add",body,config)
+        .then(response=>{
+          console.log(response.data);
+        }).catch(err=>console.log(err));
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -73,12 +118,20 @@ export default function ResponsiveDialog() {
                                     <TextField
                                         variant="outlined"
                                         label="Title"
+                                        onChange={onChangeName}
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={12}  >
+                                {/*<Grid item xs={12} sm={12}  >
                                     <TextField
                                         variant="outlined"
                                         label="Subject"
+                                    />
+                                </Grid>*/}
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        label="Date"
+                                        onChange={onChangeDue}
                                     />
                                 </Grid>
                                 {/*<Grid item xs={12} sm={12}  className={classes.grid}>*/}
@@ -90,7 +143,7 @@ export default function ResponsiveDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Fab color="primary"  style={{backgroundColor : "#185ABC"}}>
-                        <AddIcon />
+                        <AddIcon onClick={onAddAssignment}/>
                     </Fab>
                 </DialogActions>
             </Dialog>

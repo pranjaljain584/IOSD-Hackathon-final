@@ -16,13 +16,14 @@ const Classroom = (props) => {
 
   useEffect(() => {
     console.log(location);
+    console.log(location.state.classid);
     setSubject(location.state.sub) ;
   }, []);
 
   return (
     <div>
       <h1>{subject}</h1>
-      <AssignmentForm/>
+      <AssignmentForm classid={location.state.classid} sub={subject}/>
     </div>
   );
   //   }

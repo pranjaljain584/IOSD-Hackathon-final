@@ -76,7 +76,7 @@ export function Dashboard(props) {
     .then(response=>{
       console.log(response.data) ;
       setAssignments(response.data) ;
-    })
+    }).catch(err=>console.log(err));
 
 
   },[]);
@@ -91,9 +91,10 @@ export function Dashboard(props) {
               <GridItem xs={12} sm={6} md={4}>
                 <Link
                   to={{
-                    pathname: '/admin/classroom',
+                    pathname: `/admin/classroom`,
                     state: {
                       sub: element.subject,
+                      classid:element._id
                     },
                   }}
                 >

@@ -38,13 +38,18 @@ export default function CustomTable(props) {
           {tableData.map((prop, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
-                {prop.map((prop, key) => {
-                  return (
-                    <TableCell className={classes.tableCell} key={key}>
-                      {prop}
-                    </TableCell>
-                  );
-                })}
+                <TableCell className={classes.tableCell} key={key}>
+                  {key+1}
+                </TableCell>
+                <TableCell className={classes.tableCell} key={key}>
+                  {prop.name}
+                </TableCell>
+                <TableCell className={classes.tableCell} key={key}>
+                  {prop.subject}
+                </TableCell>
+                <TableCell className={classes.tableCell} key={key}>
+                  {prop.due}
+                </TableCell>
               </TableRow>
             );
           })}

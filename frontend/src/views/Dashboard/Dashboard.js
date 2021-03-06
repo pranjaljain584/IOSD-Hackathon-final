@@ -55,7 +55,7 @@ export function Dashboard(props) {
   //   taskIndexArr.push(index);
   // })
   const [joinedClasses,setJoinedClasses]=useState([]);
-  const [Assignments, setAssignments]=useState([]) ;
+  const [assignments, setAssignments]=useState([]) ;
 
   useEffect(()=>{
 
@@ -72,7 +72,7 @@ export function Dashboard(props) {
         setJoinedClasses(response.data);
       })
 
-    axios.get('http://localhost:5000/api/assignments' , config )
+    axios.get('http://localhost:5000/api/assignment' , config )
     .then(response=>{
       console.log(response.data) ;
       setAssignments(response.data) ;
@@ -154,7 +154,7 @@ export function Dashboard(props) {
               <Table
                 tableHeaderColor='danger'
                 tableHead={['ID', 'Name', 'Subject', 'Due Date']}
-                tableData={Assignments}
+                tableData={assignments}
               />
             </CardBody>
           </Card>

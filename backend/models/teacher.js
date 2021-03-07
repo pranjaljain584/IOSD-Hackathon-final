@@ -20,9 +20,9 @@ const TeacherSchema = new Schema(
     avatar: {
       type: String,
     },
-    isTeacher:{
+    isStudent:{
       type:Boolean,
-      default:true,
+      default:false,
     }
   },
   {

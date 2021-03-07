@@ -7,11 +7,18 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 
 const User = require("../../models/User");
-
+const Teacher = require("../../models/teacher");
 
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
+    console.log("user ",user);
+    if(!user)
+    {
+      const teacher = await Teacher.findById(req.user.id).select("-password");
+      console.log("teacher ",teacher);
+      return res.json(teacher);
+    }
     res.json(user);
   } catch (err) {
     res.status(500).send("Server errror");

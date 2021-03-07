@@ -22,7 +22,7 @@ export const loadUser = () => {
     try {
       console.log("hi");
       const res = await axios.get("http://localhost:5000/api/auth");
-      console.log("again");
+      console.log("res ",res);
       dispatch({
         type: USER_LOADED,
         payload: res.data,

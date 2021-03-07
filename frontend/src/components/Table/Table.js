@@ -39,16 +39,16 @@ export default function CustomTable(props) {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
                 <TableCell className={classes.tableCell} key={key}>
-                  {key+1}
+                  {prop ? key+1 : ''}
                 </TableCell>
                 <TableCell className={classes.tableCell} key={key}>
-                  {prop.name}
+                  {prop ?  prop.name : ''}
                 </TableCell>
                 <TableCell className={classes.tableCell} key={key}>
-                  {prop.subject}
+                  {prop ? prop.subject : ''}
                 </TableCell>
                 <TableCell className={classes.tableCell} key={key}>
-                  {prop.due}
+                  {prop ?  prop.due:''}
                 </TableCell>
               </TableRow>
             );

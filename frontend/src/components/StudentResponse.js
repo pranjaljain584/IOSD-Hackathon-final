@@ -57,7 +57,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function StudentResponse(props) {
-    console.log("ID : ", props.id)
+    
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const {name, subject, dueDate} = props;
@@ -67,7 +67,9 @@ export default function StudentResponse(props) {
     const handleClose = () => {
         setOpen(false);
     };
-    const submitHandler = (id) => {
+    const submitHandler = (e) => {
+        e.preventDefault();
+        console.log(props.id);
         const config = {
             headers: {
                 "Content-Type": "application/json",
@@ -75,9 +77,9 @@ export default function StudentResponse(props) {
             },
         }
         const body={
-            id:id,
+            id:props.id,
         }
-        axios.post('http://localhost:5000/api/assignment/submit', config, body).then(res=>{
+        axios.post('http://localhost:5000/api/assignment/submit',body,config).then(res=>{
             console.log(res.data);
         }).catch(err=>console.log("****", err))
     }
@@ -128,7 +130,7 @@ export default function StudentResponse(props) {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={(e)=>submitHandler(props.id)}
+                        onClick={submitHandler}
                     >
                         Submit
                     </Button>

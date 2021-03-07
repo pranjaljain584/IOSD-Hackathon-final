@@ -53,7 +53,7 @@ export default function CustomTable(props) {
                   {prop ?  prop.due:''}
                 </TableCell>
                 <TableCell className={classes.tableCell} key={key}>
-                  <StudentResponse name={prop.name} subject={prop.subject} dueDate={prop.due} id={prop._id}/>
+                  <StudentResponse name={prop ? prop.name:""} subject={prop ? prop.subject:""} dueDate={prop ? prop.due:""} id={prop ? prop._id:""}/>
                 </TableCell>
               </TableRow>
             );

@@ -45,8 +45,6 @@ export function Dashboard(props) {
   const [assignments, setAssignments]=useState([]) ;
   const [student,setStudent]=useState(false);
 
-  // const [student,setStudent] = useState(false) ;
-
   useEffect(()=>{
     setStudent(props.auth.isStudent);
     console.log("isStudent",props.auth.isStudent);
@@ -70,7 +68,7 @@ export function Dashboard(props) {
     }).catch(err=>console.log(err));
 
 
-  },[]);
+  },[joinedClasses]);
 
   console.log('IsStudent ',props.auth.isStudent,' & state : ',student);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import { useTheme } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JoinClass() {
     const [open, setOpen] = React.useState(false);
+    const [classCode , setCode] = useState("") ;
 
     // const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -53,7 +55,35 @@ export default function JoinClass() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleChange = (e) => {
+        setCode(e.target.value);
+    }
+
+    const handleJoinClass = (e) => {
+        e.preventDefault() ;
+
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.token,
+          },
+        };
+
+        const body = {
+            code:classCode
+        }
+
+        axios
+          .post('http://localhost:5000/api/classroom/join', body, config)
+          .then((response) => {
+            console.log(response.data);
+            setOpen(false);
+          });
+    }
+
     const classes = useStyles();
+
     return (
         <MuiThemeProvider theme={theme}>
             <div>
@@ -72,12 +102,12 @@ export default function JoinClass() {
                     <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}>{"Enter Class Code"}</DialogTitle>
                     <DialogContent className={classes.content}>
                         <form className={classes.form} noValidate>
-                            <TextField id="outlined-basic" label="Class Code" variant="outlined" />
+                            <TextField onChange={handleChange} id="outlined-basic" label="Class Code" variant="outlined" />
                         </form>
 
                     </DialogContent>
                     <DialogActions style={{display : "flex", justifyContent : "center"}}>
-                        <Button variant="contained" color="primary" size="large" style={{width: "50%"}}>
+                        <Button onClick={handleJoinClass} variant="contained" color="primary" size="large" style={{width: "50%"}}>
                             Join
                         </Button>
                     </DialogActions>

@@ -33,30 +33,19 @@ import axios from "axios";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { connect } from "react-redux";
+import JoinClass from "components/JoinClass";
+import CreateClass from "components/CreateClass";
 
 const useStyles = makeStyles(styles);
 
 export function Dashboard(props) {
 
   const classes = useStyles();
-  // const taskData=[{
-  //   taskName:"sleep",
-  //   isChecked:false
-  // },{
-  //   taskName:"study",
-  //   isChecked:true
-  // }]
-  // const checkedIndexesArr = [] ;
-  // const taskIndexArr=[];
-  // taskData.map((task,index) => {
-  //   if(task.isChecked){
-  //     checkedIndexesArr.push(index) ;
-  //   }
-  //   taskIndexArr.push(index);
-  // })
   const [joinedClasses,setJoinedClasses]=useState([]);
   const [assignments, setAssignments]=useState([]) ;
   const [student,setStudent]=useState(false);
+
+  const [student,setStudent] = useState(false) ;
 
   useEffect(()=>{
     setStudent(props.auth.isStudent);
@@ -87,6 +76,8 @@ export function Dashboard(props) {
 
   return (
     <div>
+      {student ? <JoinClass/> : <CreateClass/>}
+      <br/>
       <GridContainer>
       {joinedClasses ? (
         joinedClasses.map(element=>{
@@ -126,27 +117,8 @@ export function Dashboard(props) {
       </GridContainer>
 
       <GridContainer>
-        {/* <GridItem xs={12} sm={12} md={6}>
-          <CustomTabs
-            title='Tasks:'
-            headerColor='primary'
-            tabs={[
-              {
-                tabName: '',
-                tabContent: (
-                  <Tasks
-                    // checkedIndexes= {checkedIndexesArr}
-                    tasksIndexes={taskIndexArr}
-                    tasks={taskData}
-                  />
-                ),
-              }
 
-
-            ]}
-          />
-        </GridItem> */}
-        <GridItem xs={12} sm={12} md={12}>
+        {assignments.length > 0 ? <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color='danger'>
               <h4 className={classes.cardTitleWhite}>Assigned Assignments</h4>
@@ -162,7 +134,7 @@ export function Dashboard(props) {
               />
             </CardBody>
           </Card>
-        </GridItem>
+        </GridItem> : null }
       </GridContainer>
     </div>
   );

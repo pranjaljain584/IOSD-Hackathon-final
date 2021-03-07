@@ -68,13 +68,13 @@ export function Dashboard(props) {
     }).catch(err=>console.log(err));
 
 
-  },[joinedClasses]);
+  },[]);
 
   console.log('IsStudent ',props.auth.isStudent,' & state : ',student);
 
   return (
     <div>
-      {student ? <JoinClass/> : <CreateClass/>}
+      {props.auth.isStudent ? <JoinClass/> : <CreateClass/>}
       <br/>
       <GridContainer>
       {joinedClasses ? (

@@ -3,10 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import AssignmentForm from '../components/AssignmentForm'
 
-
-
-
-
 const Classroom = (props) => {
   console.log(props);
 

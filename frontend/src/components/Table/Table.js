@@ -36,6 +36,7 @@ export default function CustomTable(props) {
           </TableHead>
         ) : null}
         <TableBody>
+
           {tableData.map((prop, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
@@ -52,7 +53,7 @@ export default function CustomTable(props) {
                   {prop ?  prop.due:''}
                 </TableCell>
                 <TableCell className={classes.tableCell} key={key}>
-                  <StudentResponse name={prop.name} subject={prop.subject} dueDate={prop.due}/>
+                  <StudentResponse name={prop.name} subject={prop.subject} dueDate={prop.due} id={prop._id}/>
                 </TableCell>
               </TableRow>
             );

@@ -9,9 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 
 const theme = createMuiTheme({
     palette: {
@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
         margin: "10px",
         // color: "#000"
     },
+    submit : {
+        with: "50%",
+    },
 
     title: {
         marginLeft: theme.spacing(2),
@@ -54,17 +57,31 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function StudentResponse(props) {
+    console.log("ID : ", props.id)
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const {name, subject, dueDate} = props;
     const handleClickOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     };
-    const fontColor = props.buttonColor === "#000" ? "#fff" : "#000";
+    const submitHandler = (id) => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": localStorage.token,
+            },
+        }
+        const body={
+            id:id,
+        }
+        axios.post('http://localhost:5000/api/assignment/submit', config, body).then(res=>{
+            console.log(res.data);
+        }).catch(err=>console.log("****", err))
+    }
+
     return (
         <MuiThemeProvider theme={theme}>
             <Button variant="outlined" color="primary" size={'small'} className={classes.margin}
@@ -85,7 +102,8 @@ export default function StudentResponse(props) {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <DialogContent className={classes.content}>
+                <DialogContent >
+                    <form className={classes.content} noValidate>
                     <TextField id="Name" label="Name"  name={name} value={name} disabled={true} className={classes.textField}/>
 
                     <TextField id="Subject" label="Subject"  name={subject} value={subject} disabled={true} className={classes.textField}/>
@@ -101,6 +119,20 @@ export default function StudentResponse(props) {
                         defaultValue="Default Value"
                         variant="outlined"
                     />
+
+                    </form>
+
+                    <Button
+                        type='submit'
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={(e)=>submitHandler(props.id)}
+                    >
+                        Submit
+                    </Button>
+
                 </DialogContent>
 
 

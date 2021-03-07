@@ -84,6 +84,8 @@ export default function ResponsiveDialog(props) {
       axios.post("http://localhost:5000/api/assignment/add",body,config)
         .then(response=>{
           console.log(response.data);
+          setOpen(false);
+
         }).catch(err=>console.log(err));
     }
 
@@ -96,60 +98,70 @@ export default function ResponsiveDialog(props) {
     };
     const classes = useStyles();
     return (
-        <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
         <div>
-            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin}
-                 onClick={handleClickOpen}
-                 style={{backgroundColor: "#185ABC"}}>
-                <AddIcon className={classes.extendedIcon} />
-                Add Assignment
-            </Fab>
-            <Dialog
-                // Screen={'sm'}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
+          <Fab
+            variant='extended'
+            color='primary'
+            aria-label='add'
+            className={classes.margin}
+            onClick={handleClickOpen}
+            style={{ backgroundColor: '#185ABC' }}
+          >
+            <AddIcon className={classes.extendedIcon} />
+            Add Assignment
+          </Fab>
+          <Dialog
+            // Screen={'sm'}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='responsive-dialog-title'
+          >
+            <DialogTitle
+              id='responsive-dialog-title'
+              style={{ textAlign: 'center' }}
             >
-                <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}>{"Add Assignment"}</DialogTitle>
-                <DialogContent className={classes.content}>
-                        <form className={classes.form} noValidate>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        label="Title"
-                                        onChange={onChangeName}
-                                        required='true'
-                                    />
-                                </Grid>
-                                {/*<Grid item xs={12} sm={12}  >
+              {'Add Assignment'}
+            </DialogTitle>
+            <DialogContent className={classes.content}>
+              <form className={classes.form} noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={12}>
+                    <TextField
+                      variant='outlined'
+                      label='Title'
+                      onChange={onChangeName}
+                      required='true'
+                    />
+                  </Grid>
+                  {/*<Grid item xs={12} sm={12}  >
                                     <TextField
                                         variant="outlined"
                                         label="Subject"
                                     />
                                 </Grid>*/}
-                                <Grid item xs={12} sm={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        label="Date"
-                                        onChange={onChangeDue}
-                                        required='true'
-                                    />
-                                </Grid>
-                                {/*<Grid item xs={12} sm={12}  className={classes.grid}>*/}
-                                {/*    <DateTimePicker />*/}
-                                {/*</Grid>*/}
-                            </Grid>
-                            </form>
+                  <Grid item xs={12} sm={12}>
+                    <TextField
+                      variant='outlined'
+                      label='Date'
+                      onChange={onChangeDue}
+                      required='true'
+                    />
+                  </Grid>
+                  {/*<Grid item xs={12} sm={12}  className={classes.grid}>*/}
+                  {/*    <DateTimePicker />*/}
+                  {/*</Grid>*/}
+                </Grid>
 
-                </DialogContent>
                 <DialogActions>
-                    <Fab color="primary"  style={{backgroundColor : "#185ABC"}}>
-                        <AddIcon onClick={onAddAssignment}/>
-                    </Fab>
+                  <Fab color='primary' style={{ backgroundColor: '#185ABC' }}>
+                    <AddIcon onClick={onAddAssignment} />
+                  </Fab>
                 </DialogActions>
-            </Dialog>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
-        </MuiThemeProvider>
+      </MuiThemeProvider>
     );
 }

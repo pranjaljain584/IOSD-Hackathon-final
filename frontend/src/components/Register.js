@@ -106,16 +106,16 @@ export default function SignInSide() {
                 <Grid item xs={6} sm={6} md={6} square  className={clsx(classes.gridItem ,classes.image1)} >
                     <FullScreenDialog
                         buttonColor={'#fff'}
-                        title={"Register As Student"}
+                        title={"Register As Teacher"}
                         icon={teacherLogo}
-                        form={ <RegisterComponent className={classes.paper} isTeacher={true} logo={teacherLogo} />}
+                        form={ <RegisterComponent2 className={classes.paper} isTeacher={true} logo={teacherLogo} />}
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} md={6}  square className={clsx(classes.gridItem ,classes.image2)}>
                     <FullScreenDialog
                         buttonColor={'#000'}
                         icon={studentLogo}
-                        title={"Register As Teacher"}
+                        title={"Register As Student"}
                         form={ <RegisterComponent2 className={classes.paper} isTeacher={false} logo={studentLogo} />}
                     />
                 </Grid>

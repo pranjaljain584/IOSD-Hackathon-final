@@ -16,7 +16,7 @@ import TextField from "@material-ui/core/TextField";
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#000000'
+            main: '#185ABC'
         }
     }
 });
@@ -67,7 +67,7 @@ export default function StudentResponse(props) {
     const fontColor = props.buttonColor === "#000" ? "#fff" : "#000";
     return (
         <MuiThemeProvider theme={theme}>
-            <Button variant="contained" color="primary" size={'small'} className={classes.margin}
+            <Button variant="outlined" color="primary" size={'small'} className={classes.margin}
 
                  onClick={handleClickOpen}
             >

@@ -49,7 +49,7 @@ export default function UserProfile() {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
+                {/* <GridItem xs={12} sm={12} md={5}>
                   <CustomInput
                     labelText="School/University"
                     id="schoolNamed"
@@ -60,8 +60,8 @@ export default function UserProfile() {
                       disabled: true
                     }}
                   />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
+                </GridItem> */}
+                {/* <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
                     labelText="Username"
                     id="username"
@@ -69,7 +69,7 @@ export default function UserProfile() {
                       fullWidth: true
                     }}
                   />
-                </GridItem>
+                </GridItem> */}
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Email address"
@@ -83,25 +83,17 @@ export default function UserProfile() {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="First Name"
-                    id="first-name"
+                    labelText="Name"
+                    id="name"
                     formControlProps={{
                       fullWidth: true
                     }}
                   />
                 </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Last Name"
-                    id="last-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
+                
               </GridContainer>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
+                {/* <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Grade/Year"
                     id="grade"
@@ -109,8 +101,8 @@ export default function UserProfile() {
                       fullWidth: true
                     }}
                   />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                </GridItem> */}
+                {/* <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Section"
                     id="section"
@@ -118,8 +110,8 @@ export default function UserProfile() {
                       fullWidth: true
                     }}
                   />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                </GridItem> */}
+                {/* <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Roll Number"
                     id="roll-number"
@@ -127,8 +119,8 @@ export default function UserProfile() {
                       fullWidth: true
                     }}
                   />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                </GridItem> */}
+                {/* <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
                     labelText="Phone number"
                     id="phone"
@@ -136,7 +128,7 @@ export default function UserProfile() {
                       fullWidth: true
                     }}
                   />
-                </GridItem>
+                </GridItem> */}
               </GridContainer>
               <GridContainer>
                 

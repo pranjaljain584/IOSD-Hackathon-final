@@ -36,6 +36,12 @@ const UserSchema = new Schema(
         ref: 'Assignment',
       },
     ],
+    completedAssignments:[
+      {
+        type:mongoose.Schema.Types.ObjectID,
+        ref:'Assignment'
+      }
+    ],
     isStudent: {
       type: Boolean,
       default: true,

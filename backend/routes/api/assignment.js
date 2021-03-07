@@ -67,4 +67,36 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+router.post("/submit",auth,async(req,res)=>{
+  try {
+    const user=await User.findOne({_id:req.user.id});
+    if(!user){
+      res.status(404).send("No User Find!");
+    }
+    const assignment=await Assignment.findOne({_id:req.body.id});
+
+    if(!assignment){
+      res.status(404).send("no assignment exists!");
+
+    }
+    console.log(user);
+    console.log(assignment);
+    // let assign=user.completedAssignments;
+    // assign.push(assignment);
+    const updatedAssign = await User.update(
+      {_id:req.user.id},
+      {$addToSet:{
+      "completedAssignments":assignment._id
+    }}
+  )
+
+    res.json("success");
+    
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("server error!");
+  }
+})
+
 module.exports = router;

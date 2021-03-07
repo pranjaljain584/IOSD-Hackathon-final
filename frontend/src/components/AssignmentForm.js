@@ -119,6 +119,7 @@ export default function ResponsiveDialog(props) {
                                         variant="outlined"
                                         label="Title"
                                         onChange={onChangeName}
+                                        required='true'
                                     />
                                 </Grid>
                                 {/*<Grid item xs={12} sm={12}  >
@@ -132,6 +133,7 @@ export default function ResponsiveDialog(props) {
                                         variant="outlined"
                                         label="Date"
                                         onChange={onChangeDue}
+                                        required='true'
                                     />
                                 </Grid>
                                 {/*<Grid item xs={12} sm={12}  className={classes.grid}>*/}

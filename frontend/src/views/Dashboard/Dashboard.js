@@ -43,11 +43,13 @@ export function Dashboard(props) {
   const classes = useStyles();
   const [joinedClasses,setJoinedClasses]=useState([]);
   const [assignments, setAssignments]=useState([]) ;
+  const [student,setStudent]=useState(false);
 
   const [student,setStudent] = useState(false) ;
 
   useEffect(()=>{
-
+    setStudent(props.auth.isStudent);
+    console.log("isStudent",props.auth.isStudent);
     const config = {
         headers: {
           "Content-Type": "application/json",
@@ -69,6 +71,8 @@ export function Dashboard(props) {
 
 
   },[]);
+
+  console.log('IsStudent ',props.auth.isStudent,' & state : ',student);
 
   return (
     <div>

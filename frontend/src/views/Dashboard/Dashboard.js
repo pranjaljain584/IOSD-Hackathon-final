@@ -99,6 +99,7 @@ export function Dashboard(props) {
                   to={{
                     pathname: `/admin/classroom`,
                     state: {
+                      isStudent:props.auth.isStudent,
                       sub: element.subject,
                       classid:element._id
                     },

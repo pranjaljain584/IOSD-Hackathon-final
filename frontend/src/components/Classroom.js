@@ -9,17 +9,19 @@ const Classroom = (props) => {
   let location = useLocation();
 
   const [subject, setSubject] = useState("");
+  const [student , setStudent] = useState(false) ;
 
   useEffect(() => {
     console.log(location);
     console.log(location.state.classid);
     setSubject(location.state.sub) ;
+    setStudent(location.state.isStudent) ;
   }, []);
 
   return (
     <div>
       <h1>{subject}</h1>
-      <AssignmentForm classid={location.state.classid} sub={subject}/>
+      {student?null:<AssignmentForm classid={location.state.classid} sub={subject}/>}
     </div>
   );
   //   }

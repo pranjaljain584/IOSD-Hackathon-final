@@ -8,6 +8,7 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 
 const Teacher = require("../../models/teacher");
+const Classroom = require('../../models/classroom');
 
 // POST api/teachers
 // Register Teacher route
@@ -136,5 +137,15 @@ router.post(
     }
   }
 );
+
+router.get("/myClassrooms",auth,async(req,res)=>{
+  try {
+    const myclass=await Classroom.find({teacher:req.user.id});
+    res.json(myclass);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+})
 
 module.exports = router;

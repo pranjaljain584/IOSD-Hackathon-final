@@ -42,6 +42,7 @@ export function Dashboard(props) {
 
   const classes = useStyles();
   const [joinedClasses,setJoinedClasses]=useState([]);
+  const [myclasses,setMyclasses]=useState([]);
   const [assignments, setAssignments]=useState([]) ;
   const [student,setStudent]=useState(false);
 
@@ -55,11 +56,23 @@ export function Dashboard(props) {
         },
       }
 
-    axios.get("http://localhost:5000/api/user/joinedClasses",config)
-      .then(response=>{
-        console.log(response.data);
-        setJoinedClasses(response.data);
-      })
+    if(props.auth.isStudent)
+    {
+      axios.get("http://localhost:5000/api/user/joinedClasses",config)
+          .then(response=>{
+            console.log(response.data);
+            setJoinedClasses(response.data);
+          })
+    }
+    else
+    {
+      axios.get("http://localhost:5000/api/teacher/myClassrooms",config)
+          .then(response=>{
+            console.log(response.data);
+            setJoinedClasses(response.data);
+          })
+    }
+
 
     axios.get('http://localhost:5000/api/assignment' , config )
     .then(response=>{
@@ -68,7 +81,7 @@ export function Dashboard(props) {
     }).catch(err=>console.log(err));
 
 
-  },[]);
+  },[props.auth.isStudent]);
 
   console.log('IsStudent ',props.auth.isStudent,' & state : ',student);
 

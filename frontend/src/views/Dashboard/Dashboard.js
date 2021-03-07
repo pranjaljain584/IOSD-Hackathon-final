@@ -141,7 +141,7 @@ export function Dashboard(props) {
             <CardBody>
               <Table
                 tableHeaderColor='danger'
-                tableHead={['ID', 'Name', 'Subject', 'Due Date']}
+                tableHead={['ID', 'Name', 'Subject', 'Due Date', 'Respond']}
                 tableData={assignments}
               />
             </CardBody>

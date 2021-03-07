@@ -74,13 +74,14 @@ router.post("/submit",auth,async(req,res)=>{
       res.status(404).send("No User Find!");
     }
     const assignment=await Assignment.findOne({_id:req.body.id});
-
-    if(!assignment){
-      res.status(404).send("no assignment exists!");
+    console.log(assignment);
+    console.log(user);
+    if(assignment===null){
+      return res.status(404).send("no assignment exists!");
 
     }
-    console.log(user);
-    console.log(assignment);
+    
+    
     // let assign=user.completedAssignments;
     // assign.push(assignment);
     const updatedAssign = await User.update(

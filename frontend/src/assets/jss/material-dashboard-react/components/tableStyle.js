@@ -43,7 +43,9 @@ const tableStyle = theme => ({
     color: "inherit",
     ...defaultFont,
     "&, &$tableCell": {
-      fontSize: "1em"
+      fontSize: "1em",
+      textAlign: 'center'
+
     }
   },
   tableCell: {
@@ -51,7 +53,8 @@ const tableStyle = theme => ({
     lineHeight: "1.42857143",
     padding: "12px 8px",
     verticalAlign: "middle",
-    fontSize: "0.8125rem"
+    fontSize: "0.8125rem",
+    textAlign: "center"
   },
   tableResponsive: {
     width: "100%",
@@ -70,7 +73,8 @@ const tableStyle = theme => ({
     color: "inherit",
     display: "table-row",
     outline: "none",
-    verticalAlign: "middle"
+    verticalAlign: "middle",
+
   }
 });
 

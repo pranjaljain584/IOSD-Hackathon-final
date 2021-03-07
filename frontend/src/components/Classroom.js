@@ -22,6 +22,8 @@ const Classroom = (props) => {
     <div>
       <h1>{subject}</h1>
       {student?null:<AssignmentForm classid={location.state.classid} sub={subject}/>}
+
+      
     </div>
   );
   //   }

@@ -15,6 +15,7 @@ router.post("/add", auth, async (req, res) => {
       name: req.body.name,
       subject: req.body.subject,
       due: req.body.due,
+      classid:classid
     });
 
     await newAssignmet.save();
@@ -80,8 +81,8 @@ router.post("/submit",auth,async(req,res)=>{
       return res.status(404).send("no assignment exists!");
 
     }
-    
-    
+
+
     // let assign=user.completedAssignments;
     // assign.push(assignment);
     const updatedAssign = await User.update(
@@ -92,7 +93,7 @@ router.post("/submit",auth,async(req,res)=>{
   )
 
     res.json("success");
-    
+
 
   } catch (error) {
     console.log(error);

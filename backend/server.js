@@ -21,6 +21,7 @@ app.use("/api/teacher",require("./routes/api/teacher"));
 app.use("/api/classroom",require("./routes/api/classroom"));
 app.use('/api/task', require('./routes/api/task'));
 app.use('/api/assignment',require('./routes/api/assignment'));
+app.use('/api/progress',require('./routes/api/progress'));
 
 
 const port = process.env.PORT || 5000;

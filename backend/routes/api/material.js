@@ -10,22 +10,18 @@ router.post(
   [auth, check('text', 'Text is required!').not().isEmpty()],
   async (req, res) => {
     try {
+
+      // console.log("#########" , req) ;
+      const text = req.body.text ;
       const file = '';
-      const text = '';
-      const classid = '';
+      const classid = req.body.id;
 
-      Material.uploadedMaterial(req, res, function (err) {
-        if (err) {
-          console.log('******MUlter', err);
-        }
+      console.log("@@@@@@@@@" , req.body.material) ;
 
-        if (req.file) {
-          file = Material.materialPath + '/' + req.file.filename;
-        }
-
-        text = req.body.text;
-        classid = req.body.id;
-      });
+      if (req.body.material) {
+        console.log(req.body.material);
+        file = Material.materialPath + '/' + req.body.material;
+      }
 
       const newMaterial = new Material({
         text: text,
@@ -35,8 +31,9 @@ router.post(
 
       await newMaterial.save();
       res.json('Success');
+
     } catch (err) {
-        console.error(err.message);
+        console.error("@#$%^&*(&^%$#",err.message);
         res.status(500).send('Server error');
     }
   }

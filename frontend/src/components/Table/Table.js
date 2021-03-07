@@ -9,6 +9,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
+import StudentResponse from "../StudentResponse";
 
 const useStyles = makeStyles(styles);
 
@@ -35,6 +36,7 @@ export default function CustomTable(props) {
           </TableHead>
         ) : null}
         <TableBody>
+
           {tableData.map((prop, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
@@ -49,6 +51,9 @@ export default function CustomTable(props) {
                 </TableCell>
                 <TableCell className={classes.tableCell} key={key}>
                   {prop ?  prop.due:''}
+                </TableCell>
+                <TableCell className={classes.tableCell} key={key}>
+                  <StudentResponse name={prop ? prop.name:""} subject={prop ? prop.subject:""} dueDate={prop ? prop.due:""} id={prop ? prop._id:""}/>
                 </TableCell>
               </TableRow>
             );

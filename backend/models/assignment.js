@@ -14,6 +14,10 @@ const AssignmentSchema = new Schema(
     },
     due:{
       type:String
+    },
+    classid:{
+      type:mongoose.Schema.Types.ObjectID,
+      ref:"Classroom"
     }
 
   },

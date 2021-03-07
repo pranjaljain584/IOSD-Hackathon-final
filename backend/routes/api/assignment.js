@@ -15,6 +15,7 @@ router.post("/add", auth, async (req, res) => {
       name: req.body.name,
       subject: req.body.subject,
       due: req.body.due,
+      classid:classid
     });
 
     await newAssignmet.save();
@@ -74,13 +75,14 @@ router.post("/submit",auth,async(req,res)=>{
       res.status(404).send("No User Find!");
     }
     const assignment=await Assignment.findOne({_id:req.body.id});
-
-    if(!assignment){
-      res.status(404).send("no assignment exists!");
+    console.log(assignment);
+    console.log(user);
+    if(assignment===null){
+      return res.status(404).send("no assignment exists!");
 
     }
-    console.log(user);
-    console.log(assignment);
+
+
     // let assign=user.completedAssignments;
     // assign.push(assignment);
     const updatedAssign = await User.update(
@@ -91,7 +93,7 @@ router.post("/submit",auth,async(req,res)=>{
   )
 
     res.json("success");
-    
+
 
   } catch (error) {
     console.log(error);

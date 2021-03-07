@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +13,7 @@ import { useTheme } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -37,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateClass() {
     const [open, setOpen] = React.useState(false);
 
+    const [subject , setSubject] = useState("") ;
+
+    const [classCode , setClassCode] = useState("") ;
+
     // const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const theme = createMuiTheme({
@@ -48,12 +53,39 @@ export default function CreateClass() {
 
     });
 
+    const handleOnChange = (e) => {
+        setSubject(e.target.value) ;
+    }
+
+    const handleCreateClass = (e) => {
+        e.preventDefault() ;
+
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.token,
+          },
+        };
+
+        const body = {
+            subject: subject
+        };
+
+        axios
+          .post('http://localhost:5000/api/classroom', body , config)
+          .then((response) => {
+            console.log(response.data);
+            setClassCode(response.data.code) ;
+          });
+    }
+
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+        setClassCode("") ;
     };
     const classes = useStyles();
     return (
@@ -71,18 +103,18 @@ export default function CreateClass() {
                     onClose={handleClose}
                     aria-labelledby="responsive-dialog-title"
                 >
-                    <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}>{"Enter Class Name"}</DialogTitle>
+                    <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}> {classCode ? `Subject: ${subject}` : "Enter Class Name"}</DialogTitle>
                     <DialogContent className={classes.content}>
-                        <form className={classes.form} noValidate>
-                            <TextField id="outlined-basic" label="Class Name" variant="outlined" />
-                        </form>
+                        {classCode? `Code : ${classCode}` : <form className={classes.form} noValidate>
+                            <TextField onChange={handleOnChange} id="outlined-basic" label="Class Name" variant="outlined" />
+                        </form> }
 
-                    </DialogContent>
-                    <DialogActions style={{display : "flex", justifyContent : "center"}}>
-                        <Button variant="contained" color="primary" size="large" style={{width: "50%"}}>
+                    </DialogContent> 
+                    {classCode ? null : <DialogActions style={{display : "flex", justifyContent : "center"}}>
+                        <Button variant="contained" color="primary" size="large" style={{width: "50%"}} onClick={handleCreateClass} >
                             Create
                         </Button>
-                    </DialogActions>
+                    </DialogActions>}
                 </Dialog>
             </div>
         </MuiThemeProvider>

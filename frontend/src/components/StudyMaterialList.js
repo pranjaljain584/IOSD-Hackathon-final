@@ -75,7 +75,7 @@ export default function StudyMaterialList(props) {
           <Typography variant='body2' color='textSecondary' component='p'>
             {text}
           </Typography>
-          <img src={material} />
+          <img src={material} alt="img" />
           {/* {!fileUrl ? <a href={fileUrl} download={fileUrl}>pdf</a> : null} */}
         </CardContent>
       </Card>

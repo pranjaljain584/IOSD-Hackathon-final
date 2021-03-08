@@ -71,10 +71,11 @@ router.post('/join',auth,async(req,res)=>{
   }
 })
 
-router.get("/leaderboard",auth,async(req,res)=>{
+router.post("/leaderboard",auth,async(req,res)=>{
   try {
     let arr=[];
-    const classroom=await Classroom.findById(req.body.classId);
+    console.log(req.body.classId);
+    const classroom=await Classroom.findOne({_id:req.body.classId});
     // if(!classroom){return res.json("no classroom found")}
       for (let i = 0; i < classroom.joinedStudents.length; i++) {
         let user = await User.findOne({_id: classroom.joinedStudents[i]});
@@ -108,7 +109,8 @@ router.get("/leaderboard",auth,async(req,res)=>{
         const prog = 100 * (completed / total);
         const obj = {
           student: user,
-          progress: prog
+          progress: prog,
+          subject:classroom.subject
         }
         arr.push(obj);
       }

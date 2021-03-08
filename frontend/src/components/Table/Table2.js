@@ -21,18 +21,7 @@ function createData(Rank,  Name, Score) {
     return { Rank,  Name, Score };
 }
 
-const rows = [
-    createData(1, 'IN', 1324171354),
-    createData(2, 'CN', 1403500365),
-    createData(3, 'IT', 60483973),
-    createData(4, 'US', 327167434),
-    createData(5, 'CA', 37602103),
-    createData(6, 'AU', 25475400),
-    createData(7, 'DE', 8301920),
-    createData(8, 'IE', 4857000),
-    createData(9, 'MX', 126577691),
-    createData(10, 'JP', 126317000)
-];
+
 
 const useStyles = makeStyles({
     root: {
@@ -45,12 +34,21 @@ const useStyles = makeStyles({
 
 
 
-export default function StickyHeadTable(props) {
+export default function Table2(props) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(4);
     const [tableData, setTableData] = React.useState([]);
+    
+    const idClass=props.classId;
     console.log('-->', props.classId)
+
+    const row=[];
+    var j=1;
+    for(var i=tableData.length-1;i>=0;i--){
+        row.push(createData(j++,tableData[i].student.name,tableData[i].progress));
+    }
+
     useEffect(() => {
         const config = {
             headers: {
@@ -58,12 +56,14 @@ export default function StickyHeadTable(props) {
                 "x-auth-token": localStorage.token,
             },
         }
+        console.log(idClass);
         const body = {
-            classId:props.classId,
+            classId:idClass,
         }
-        axios.get("http://localhost:5000/api/classroom/leaderboard", body, config).then(res =>{
+        axios.post("http://localhost:5000/api/classroom/leaderboard",body,config).then(res =>{
             console.log("&&&",res.data)
             setTableData(res.data)
+            
         }).catch(err => console.log(err))
     },[])
 
@@ -95,7 +95,7 @@ export default function StickyHeadTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                        {row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                             return (
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                                     {columns.map((column) => {
@@ -115,7 +115,7 @@ export default function StickyHeadTable(props) {
             <TablePagination
                 rowsPerPageOptions={[4, 8, 10 ]}
                 component="div"
-                count={rows.length}
+                count={row.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}

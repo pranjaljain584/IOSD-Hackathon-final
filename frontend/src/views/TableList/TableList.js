@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Table from '../../components/Table/Table2'
+import Table2 from '../../components/Table/Table2'
 import { connect } from "react-redux";
 class TableList extends Component {
 
@@ -7,9 +7,9 @@ class TableList extends Component {
         console.log("%%%%", this.props.auth.user.classes)
         return (
 
-            <div style={{display: 'flex', justifyContent: "center", alignItem: 'center'}}>
+            <div style={{display: 'flex', justifyContent: "center", alignItem: 'center',flexDirection:"column"}}>
                 {this.props.auth.user.classes.map((classId)=>(
-                    <Table classId={classId}/>
+                    <Table2  classId={classId}/>
                 ))}
 
             </div>

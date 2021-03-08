@@ -24,7 +24,7 @@ router.post('/',
 
       const classcode = crypto.randomBytes(3).toString('hex');
 
-      const newclass=new Classroom({
+      const newclass = new Classroom({
         subject:req.body.subject,
         code:classcode,
         teacher:req.user.id
@@ -71,47 +71,50 @@ router.post('/join',auth,async(req,res)=>{
   }
 })
 
-router.get("/leaderboard",auth,async(req,res)=>{
+router.post("/leaderboard",auth,async(req,res)=>{
   try {
     let arr=[];
+    console.log(req.body.classId);
     const classroom=await Classroom.findOne({_id:req.body.classId});
-    for(var i=0;i<classroom.joinedStudents.length;i++){
-      let user= await User.findOne({_id:classroom.joinedStudents[i]});
-      let total=0;
-      let completed=0;
-      for(var j=0;j<user.assignments.length;j++){
-        const assign= await Assignment.findOne({_id:user.assignments[j]})
-        console.log('>>>>>>>',assign);
-          if(assign){
-            if((assign.classid.toString())===req.body.classId){
+    // if(!classroom){return res.json("no classroom found")}
+      for (let i = 0; i < classroom.joinedStudents.length; i++) {
+        let user = await User.findOne({_id: classroom.joinedStudents[i]});
+        let total = 0;
+        let completed = 0;
+
+        for (let j = 0; j < user.assignments.length; j++) {
+          const assign = await Assignment.findOne({_id: user.assignments[j]})
+          console.log('>>>>>>>', assign);
+          if (assign) {
+            if ((assign.classid.toString()) === req.body.classId) {
               total++;
             }
           }
-          
-        
-        
-      }
-      for(var j=0;j<user.completedAssignments.length;j++){
-        const assign2= await Assignment.findOne({_id:user.completedAssignments[j]})
-        console.log('<<<<<<<<<',assign2);
-        if(assign2){
-          if(assign2.classid.toString()===req.body.classId){
-            completed++;
-          }
+
+
         }
-          
-        
-        
+        for (let j = 0; j < user.completedAssignments.length; j++) {
+          const assign2 = await Assignment.findOne({_id: user.completedAssignments[j]})
+          console.log('<<<<<<<<<', assign2);
+          if (assign2) {
+            if (assign2.classid.toString() === req.body.classId) {
+              completed++;
+            }
+          }
+
+
+        }
+        console.log(total);
+        console.log(completed);
+        const prog = 100 * (completed / total);
+        const obj = {
+          student: user,
+          progress: prog,
+          subject:classroom.subject
+        }
+        arr.push(obj);
       }
-      console.log(total);
-      console.log(completed);
-      const prog=100*(completed/total);
-      const obj={
-        student:user,
-        progress:prog
-      }
-      arr.push(obj);
-    }
+
     arr.sort((a,b)=>{
       return a.progress-b.progress;
     })

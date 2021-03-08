@@ -48,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
 export default function StudyMaterialList(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const {text , material ,teacher} = props
+  const {text ,teacher , fileUrl} = props
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  console.log("List Materal" , material) ;
+//   console.log("List Materal" , material) ;
 
   return (
     <div
@@ -67,14 +67,14 @@ export default function StudyMaterialList(props) {
               R
             </Avatar>
           }
-          title={teacher ? teacher : "Teacher Name"}
-        //   title={teacher}
+          title={teacher ? teacher : 'Teacher Name'}
+          //   title={teacher}
         />
         <CardContent className={classes.cardContent}>
           <Typography variant='body2' color='textSecondary' component='p'>
             {text}
           </Typography>
-          <img src={material} alt="pdf"/>
+          <a href={fileUrl}> pdf</a>
         </CardContent>
       </Card>
     </div>

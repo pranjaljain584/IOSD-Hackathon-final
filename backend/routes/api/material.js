@@ -13,6 +13,7 @@ router.post(
       let text = '';
       let filepath = '';
       let classid = '';
+      let fileUrl ;
 
       //console.log(' uppper req  ',req);
 
@@ -26,6 +27,7 @@ router.post(
           console.log(' req   ', req.body);
           text = req.body.text;
           classid = req.body.id;
+          fileUrl = req.body.fileUrl ;
           console.log('---------->>', req.file);
 
           if (req.file) {
@@ -43,6 +45,7 @@ router.post(
               text: text,
               material: filepath,
               classroom: classid,
+              fileUrl:fileUrl
             });
 
             await newMaterial.save();

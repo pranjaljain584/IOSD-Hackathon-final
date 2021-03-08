@@ -66,7 +66,7 @@ const Classroom = (props) => {
         return <StudyMaterialList 
           key={key}
           text={smat.text}
-          material={smat.material}
+          fileUrl={smat.fileUrl}
           subject={subject}
           teacher={teacher}
         />;

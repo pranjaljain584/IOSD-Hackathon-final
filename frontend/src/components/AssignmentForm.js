@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useTheme } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -85,7 +86,7 @@ export default function ResponsiveDialog(props) {
         .then(response=>{
           console.log(response.data);
           setOpen(false);
-
+          swal("Assignment Added").then(()=>window.location.href="/admin/dashboard");
         }).catch(err=>console.log(err));
     }
 

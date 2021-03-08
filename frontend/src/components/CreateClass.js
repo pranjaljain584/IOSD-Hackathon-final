@@ -14,6 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -76,7 +77,8 @@ export default function CreateClass() {
           .then((response) => {
             console.log(response.data);
             setClassCode(response.data.code) ;
-          });
+            //swal("New Classroom created").then(()=>window.location.href="/admin/dashboard");
+          }).catch(err=>console.log(err));
     }
 
     const handleClickOpen = () => {
@@ -105,11 +107,19 @@ export default function CreateClass() {
                 >
                     <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}> {classCode ? `Subject: ${subject}` : "Enter Class Name"}</DialogTitle>
                     <DialogContent className={classes.content}>
-                        {classCode? `Code : ${classCode}` : <form className={classes.form} noValidate>
+                        {classCode? <React.Fragment>
+                          <div>
+                          `Code : ${classCode}`
+                          <br />
+                          <Button variant="contained" color="success" onClick={(e)=>{
+                            window.location.href="/admin/dashboard"
+                          }}>OK</Button>
+                          </div>
+                          </React.Fragment> : <form className={classes.form} noValidate>
                             <TextField onChange={handleOnChange} id="outlined-basic" label="Class Name" variant="outlined" />
                         </form> }
 
-                    </DialogContent> 
+                    </DialogContent>
                     {classCode ? null : <DialogActions style={{display : "flex", justifyContent : "center"}}>
                         <Button variant="contained" color="primary" size="large" style={{width: "50%"}} onClick={handleCreateClass} >
                             Create

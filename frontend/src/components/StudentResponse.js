@@ -12,6 +12,7 @@ import Slide from '@material-ui/core/Slide';
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import swal from "sweetalert";
 
 const theme = createMuiTheme({
     palette: {
@@ -57,7 +58,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function StudentResponse(props) {
-    
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const {name, subject, dueDate} = props;
@@ -82,6 +83,7 @@ export default function StudentResponse(props) {
         axios.post('http://localhost:5000/api/assignment/submit',body,config).then(res=>{
             console.log(res.data);
             setOpen(false) ;
+            swal("Response Submitted").then(()=>window.location.href="/admin/dashboard");
         }).catch(err=>console.log("****", err))
     }
 

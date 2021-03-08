@@ -9,15 +9,31 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import { logout } from "actions/auth";
 import { connect } from "react-redux";
+import axios from "axios";
 
 // const useStyles = makeStyles(styles);
 
 export function AdminNavbarLinks(props) {
-  
-  const handleClick=()=>{
-    // handle logout
-    props.dispatch(logout());
 
+  const handleClick=(e)=>{
+    // handle logout
+    console.log(props.sec,props.min,props.hr);
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": localStorage.token,
+        },
+    }
+    const body={
+      second:props.sec,
+      minute:props.min,
+      hour:props.hr
+    }
+    axios.post("http://localhost:5000/api/screentime",body,config)
+      .then(response=>{
+        console.log(response.data);
+        props.dispatch(logout());
+      })
   }
 
   return (

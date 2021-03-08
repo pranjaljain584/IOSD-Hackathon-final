@@ -22,7 +22,7 @@ app.use("/api/classroom",require("./routes/api/classroom"));
 app.use('/api/material', require('./routes/api/material'));
 app.use('/api/assignment',require('./routes/api/assignment'));
 app.use('/api/progress',require('./routes/api/progress'));
-
+app.use('/api/screentime',require('./routes/api/screentime'));
 
 const port = process.env.PORT || 5000;
 

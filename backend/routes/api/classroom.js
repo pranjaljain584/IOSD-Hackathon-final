@@ -6,6 +6,7 @@ const crypto = require('crypto');
 
 const Classroom = require('../../models/classroom');
 const User = require('../../models/User');
+const Assignment = require('../../models/assignment');
 
 //Create Classroom
 router.post('/',
@@ -67,6 +68,59 @@ router.post('/join',auth,async(req,res)=>{
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+})
+
+router.get("/leaderboard",auth,async(req,res)=>{
+  try {
+    let arr=[];
+    const classroom=await Classroom.findOne({_id:req.body.classId});
+    for(var i=0;i<classroom.joinedStudents.length;i++){
+      let user= await User.findOne({_id:classroom.joinedStudents[i]});
+      let total=0;
+      let completed=0;
+      for(var j=0;j<user.assignments.length;j++){
+        const assign= await Assignment.findOne({_id:user.assignments[j]})
+        console.log('>>>>>>>',assign);
+          if(assign){
+            if((assign.classid.toString())===req.body.classId){
+              total++;
+            }
+          }
+          
+        
+        
+      }
+      for(var j=0;j<user.completedAssignments.length;j++){
+        const assign2= await Assignment.findOne({_id:user.completedAssignments[j]})
+        console.log('<<<<<<<<<',assign2);
+        if(assign2){
+          if(assign2.classid.toString()===req.body.classId){
+            completed++;
+          }
+        }
+          
+        
+        
+      }
+      console.log(total);
+      console.log(completed);
+      const prog=100*(completed/total);
+      const obj={
+        student:user,
+        progress:prog
+      }
+      arr.push(obj);
+    }
+    arr.sort((a,b)=>{
+      return a.progress-b.progress;
+    })
+
+    res.json(arr);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("server error!");
   }
 })
 

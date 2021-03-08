@@ -91,51 +91,56 @@ export function Dashboard(props) {
 
   },[props.auth.isStudent]);
 
-  console.log('IsStudent ',props.auth.isStudent,' & state : ',student);
+  console.log('IsStudent ',props.auth.isStudent,' & name : ',props.auth.name);
 
   return (
     <div>
       {props.auth.isStudent ? <JoinClass/> : <CreateClass/>}
       <br/>
-      <GridContainer>
-      {joinedClasses ? (
-        joinedClasses.map(element=>{
-          return (
-            <React.Fragment key={element._id}>
-              <GridItem xs={12} sm={6} md={4}>
-                <Link
-                  to={{
-                    pathname: `/admin/classroom`,
-                    state: {
-                      name:props.auth.name,
-                      isStudent:props.auth.isStudent,
-                      sub: element.subject,
-                      classid:element._id
-                    },
-                  }}
-                >
-                  <Card>
-                    <CardHeader color='success' stats icon>
-                      <CardIcon color='success'>
-                        <Icon>
-                          <Store />
-                        </Icon>
-                      </CardIcon>
-                      <br />
-                      <h3 className={classes.cardTitle}>{element.subject}</h3>
-                      <h3 className={classes.cardCategory}>
-                        {progress[i++]} <small>%</small>
-                      </h3>
-                    </CardHeader>
-                    <CardFooter stats></CardFooter>
-                  </Card>
-                </Link>
-              </GridItem>
-            </React.Fragment>
-          );
-        })
+      {props.auth.user ? (
+        <React.Fragment>
+        <GridContainer>
+        {joinedClasses ? (
+          joinedClasses.map(element=>{
+            return (
+              <React.Fragment key={element._id}>
+                <GridItem xs={12} sm={6} md={4}>
+                  <Link
+                    to={{
+                      pathname: `/admin/classroom`,
+                      state: {
+                        name:props.auth.user.name,
+                        isStudent:props.auth.isStudent,
+                        sub: element.subject,
+                        classid:element._id
+                      },
+                    }}
+                  >
+                    <Card>
+                      <CardHeader color='success' stats icon>
+                        <CardIcon color='success'>
+                          <Icon>
+                            <Store />
+                          </Icon>
+                        </CardIcon>
+                        <br />
+                        <h3 className={classes.cardTitle}>{element.subject}</h3>
+                        <h3 className={classes.cardCategory}>
+                          {progress[i++]} <small>%</small>
+                        </h3>
+                      </CardHeader>
+                      <CardFooter stats></CardFooter>
+                    </Card>
+                  </Link>
+                </GridItem>
+              </React.Fragment>
+            );
+          })
+        ) : null}
+        </GridContainer>
+        </React.Fragment>
       ) : null}
-      </GridContainer>
+
 
       <GridContainer>
 

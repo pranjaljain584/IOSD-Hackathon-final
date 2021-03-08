@@ -61,7 +61,7 @@ router.get('/', auth, async (req, res) => {
 
       assig.push(c);
     }
-
+    // console.log("assig", assig)
     let arr1 = user.completedAssignments;
     // console.log('arr1->>>>>>>>>>', arr1);
     let arr2 = assig;
@@ -69,10 +69,10 @@ router.get('/', auth, async (req, res) => {
 
     let difference = arr2.filter((x) => {
       if(x){
-        return arr1.includes(x._id);
+        return !arr1.includes(x._id);
       }
     });
-    // console.log('DIFFERENCE', difference);
+    console.log('DIFFERENCE', difference);
 
     res.json(difference);
     

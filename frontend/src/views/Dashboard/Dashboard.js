@@ -78,7 +78,7 @@ export function Dashboard(props) {
 
     axios.get('http://localhost:5000/api/assignment' , config )
     .then(response=>{
-      console.log(response.data) ;
+      console.log("**--**",response.data) ;
       setAssignments(response.data) ;
     }).catch(err=>console.log(err));
 

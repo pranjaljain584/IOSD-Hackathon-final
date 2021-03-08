@@ -98,15 +98,18 @@ router.post('/submit', auth, async (req, res) => {
     // let assign=user.completedAssignments;
     // assign.push(assignment);
     const updatedAssign = await User.update(
-      { _id: req.user.id },
-      {
-        $addToSet: {
-          completedAssignments: assignment._id,
-        },
-      }
-    );
 
-    res.json('success');
+      {_id:req.user.id},
+      {$addToSet:{
+      "completedAssignments":assignment._id
+    }}
+  )
+  
+  await User.update({_id:req.user.id},
+    {})
+
+    res.json("success");
+
   } catch (error) {
     console.log(error);
     res.status(500).send('server error!');

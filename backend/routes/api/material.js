@@ -34,8 +34,6 @@ router.post(
 
           file = Material.materialPath + '/' + req.file.path;
         }
-
-        
       });
 
       const newMaterial = new Material({

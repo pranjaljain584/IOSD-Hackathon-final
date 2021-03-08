@@ -19,6 +19,9 @@ const MaterialSchema = new Schema(
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Classroom',
     },
+    fileUrl:{
+      type:String
+    }
   },
   {
     timestamps: true,

@@ -14,36 +14,50 @@ router.post(
   async (req, res) => {
     try {
       let text = '';
-      let file = '';
-      let classid ;
+      let filepath = '';
+      let classid ='';
 
-      const xyz = await Material.uploadedMaterial(req, res, function (err) {
+      //console.log(' uppper req  ',req);
+
+      const xyz = await Material.uploadedMaterial(req, res, async function(err) {
         if (err) {
           console.log('****Multer err', err);
         }
-
-        text = req.text;
-        classid = req.id;
+        console.log(' req   ',req.body);
+        text = req.body.text;
+        classid = req.body.id;
         console.log('---------->>', req.file);
 
         if (req.file) {
-          console.log( "----------" , req.file.path);
-
-          file = Material.materialPath + '/' + req.file.path;
+          //console.log( "req.file.path  " , req.file.path);
+          //console.log(" material path ",Material.materialPath);
+          filepath = Material.materialPath + '/' + req.file.path;
         }
+
+        console.log(' file path : ',filepath);
+        console.log(' text  ',text);
+        console.log(' classroom  ',classid);
+
+        try {
+          const newMaterial = new Material({
+            text: text,
+            material: filepath,
+            classroom: classid,
+          });
+
+
+          await newMaterial.save() ;
+        } catch (err) {
+
+          console.error('@#$%^&*^%$#', err.message);
+          res.status(500).send('Server error');
+
+        }
+
       });
 
       console.log("xyz->>>>>" , xyz) ;
-      console.log('material->>>>>', file);
-
-      const newMaterial = new Material({
-        text: text,
-        material: file,
-        classroom: classid,
-      });
-
-      
-      await newMaterial.save() ;
+    //  console.log('material->>>>>', filepath);
 
       res.json('success');
 

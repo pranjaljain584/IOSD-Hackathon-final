@@ -30,6 +30,7 @@ let storage = multer.diskStorage({
     // cb is callback fn
     console.log("*********" , file) ;
     cb(null, path.join(__dirname, '..', MATERIAL_PATH)); //this is the exact path where file is going to be stored
+    //cb(null, path.join(__dirname, '/uploads/'));
     // relative to current position
   },
   filename: function (req, file, cb) {

@@ -85,7 +85,7 @@ export function Dashboard(props) {
 
     axios.get('http://localhost:5000/api/progress',config)
         .then(response=>{
-          console.log(response.data);
+          // console.log(response.data);
           setProgress(response.data);
         })
 
@@ -107,6 +107,7 @@ export function Dashboard(props) {
                   to={{
                     pathname: `/admin/classroom`,
                     state: {
+                      name:props.auth.name,
                       isStudent:props.auth.isStudent,
                       sub: element.subject,
                       classid:element._id

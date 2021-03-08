@@ -15,7 +15,8 @@ import {
     isAuthenticated: null,
     loading: true,
     user: null,
-    isStudent:true
+    isStudent:true,
+    name:""
   };
 
   export default function(state = initialAuthState, action) {
@@ -52,6 +53,7 @@ import {
           isAuthenticated: true,
           user: action.payload,
           loading: false,
+          name:action.payload.name,
           isStudent:action.payload.isStudent
         };
 

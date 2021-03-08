@@ -14,7 +14,7 @@ const Classroom = (props) => {
   const [student, setStudent] = useState(false);
   const [text, setText] = useState('');
   const [classId, setClass] = useState('');
-  const [file,setFile] = useState("") ;
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     console.log(location);
@@ -29,29 +29,40 @@ const Classroom = (props) => {
   }
 
   function handleFileChange(e) {
-    setFile(URL.createObjectURL(e.target.files[0]));
-    console.log('file ->>>>', file);
+    // console.log('TARGET->>>>>', e);
+    setFile(e.target.files[0]);
+
+
     // console.log(e);
   }
 
   function handlePost(e) {
+    
     e.preventDefault();
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/pdf',
         'x-auth-token': localStorage.token,
       },
     };
 
-    const body = {
-      text,
-      material: file,
-      id: classId,
-    };
+    // const body = {
+    //   text,
+    //   material: file,
+    //   id: classId,
+    // };
+
+    const data = new FormData();
+    data.append('material', file);
+    data.append('text' , text) ;
+    data.append('id' , classId) ;
+
+
+    // console.log('material ->>>>', body.material);
 
     axios
-      .post('http://localhost:5000/api/material', body, config)
+      .post('http://localhost:5000/api/material', data, config)
       .then((response) => {
         console.log(response.data);
       })
@@ -66,12 +77,12 @@ const Classroom = (props) => {
       )}
 
       <form>
-        <h3 class='title'>Announce something to your class</h3>
+        <h3 className='title'>Announce something to your class</h3>
         <input
           placeholder='Start typing'
           type='text'
           name='announcement'
-          required=''
+          // required='true'
           onChange={handleChange}
         />
 
@@ -79,13 +90,18 @@ const Classroom = (props) => {
           onChange={(e) => handleFileChange(e)}
           type='file'
           id='uploadedFile'
-          // accept='image/png, image/jpeg'
+          // accept='application/pdf'
         />
 
         <button class='button' onClick={handlePost}>
           Post
         </button>
       </form>
+
+      {/* <a href='blob:http://localhost:3000/d75ec955-ebef-4434-8a55-1e6e84e20569'>
+        {' '}
+        pdf{' '}
+      </a> */}
     </div>
   );
   //   }

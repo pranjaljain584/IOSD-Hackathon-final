@@ -81,6 +81,7 @@ export default function StudentResponse(props) {
         }
         axios.post('http://localhost:5000/api/assignment/submit',body,config).then(res=>{
             console.log(res.data);
+            setOpen(false) ;
         }).catch(err=>console.log("****", err))
     }
 

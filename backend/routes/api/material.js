@@ -7,21 +7,36 @@ const Material = require('../../models/Material');
 
 router.post(
   '/',
-  [auth, check('text', 'Text is required!').not().isEmpty()],
+  [
+    auth,
+    // check('text', 'Text is required!').not().isEmpty()
+  ],
   async (req, res) => {
     try {
+      let text = '';
+      let file;
+      let classid ;
 
-      // console.log("#########" , req) ;
-      const text = req.body.text ;
-      const file = '';
-      const classid = req.body.id;
+      Material.uploadedMaterial(req, res, function (err) {
+        if (err) {
+          console.log('****Multer err', err);
+        }
 
-      console.log("@@@@@@@@@" , req.body.material) ;
+        // console.log('@@@@@@@@@', req.material);
 
-      if (req.body.material) {
-        console.log(req.body.material);
-        file = Material.materialPath + '/' + req.body.material;
-      }
+        text = req.text;
+        classid = req.id;
+        console.log('---------->>', req.file.path);
+
+
+        if (req.file) {
+          console.log( "----------" , req.file.path);
+
+          file = Material.materialPath + '/' + req.file.path;
+        }
+
+        
+      });
 
       const newMaterial = new Material({
         text: text,
@@ -29,12 +44,17 @@ router.post(
         classroom: classid,
       });
 
-      await newMaterial.save();
-      res.json('Success');
+      console.log("material->>>>>" , file) ;
+      
+      await newMaterial.save() ;
+      console.log("Saved") ;
+      res.json('success');
 
     } catch (err) {
-        console.error("@#$%^&*(&^%$#",err.message);
-        res.status(500).send('Server error');
+
+      console.error('@#$%^&*^%$#', err.message);
+      res.status(500).send('Server error');
+
     }
   }
 );

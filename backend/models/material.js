@@ -10,7 +10,7 @@ const MaterialSchema = new Schema(
   {
     text: {
       type: String,
-      required: true,
+      // required: true,
     },
     material: {
       type: String,
@@ -28,6 +28,7 @@ const MaterialSchema = new Schema(
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // cb is callback fn
+    console.log("*********" , file) ;
     cb(null, path.join(__dirname, '..', MATERIAL_PATH)); //this is the exact path where file is going to be stored
     // relative to current position
   },

@@ -14,20 +14,17 @@ router.post(
   async (req, res) => {
     try {
       let text = '';
-      let file;
+      let file = '';
       let classid ;
 
-      Material.uploadedMaterial(req, res, function (err) {
+      const xyz = await Material.uploadedMaterial(req, res, function (err) {
         if (err) {
           console.log('****Multer err', err);
         }
 
-        // console.log('@@@@@@@@@', req.material);
-
         text = req.text;
         classid = req.id;
-        console.log('---------->>', req.file.path);
-
+        console.log('---------->>', req.file);
 
         if (req.file) {
           console.log( "----------" , req.file.path);
@@ -36,16 +33,18 @@ router.post(
         }
       });
 
+      console.log("xyz->>>>>" , xyz) ;
+      console.log('material->>>>>', file);
+
       const newMaterial = new Material({
         text: text,
         material: file,
         classroom: classid,
       });
 
-      console.log("material->>>>>" , file) ;
       
       await newMaterial.save() ;
-      console.log("Saved") ;
+
       res.json('success');
 
     } catch (err) {

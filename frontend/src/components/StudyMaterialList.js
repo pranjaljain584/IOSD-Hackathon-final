@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
 export default function StudyMaterialList(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const {text ,teacher , fileUrl} = props
+  const {text ,teacher , fileUrl,material} = props ;
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -74,7 +75,8 @@ export default function StudyMaterialList(props) {
           <Typography variant='body2' color='textSecondary' component='p'>
             {text}
           </Typography>
-          <a href={fileUrl}> pdf</a>
+          <img src={material} />
+          {/* {!fileUrl ? <a href={fileUrl} download={fileUrl}>pdf</a> : null} */}
         </CardContent>
       </Card>
     </div>

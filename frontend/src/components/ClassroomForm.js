@@ -28,7 +28,7 @@ export default function ClassroomForm(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [text, setText] = useState('');
   const [file, setFile] = useState(null);
-  const [fileUrl , setUrl] = useState() ;
+  const [fileUrl , setUrl] = useState(null) ;
 
   const handleExpandClick = (val) => {
     setExpanded(val);
@@ -46,12 +46,17 @@ export default function ClassroomForm(props) {
     setText(e.target.value);
   }
 
-  function handleFileChange(e) {
+
+  const handleFileChange = async (e) => {
     // console.log('TARGET->>>>>', e);
     setFile(e.target.files[0]);
-    setUrl(URL.createObjectURL(e.target.files[0]));
+    const url = URL.createObjectURL(e.target.files[0]) ;
+    // const url = await getBase64(e.target.files[0]);
+    // console.log("URL------->>>>>", url) ;
+    setUrl(url) ;
 
   }
+
 
   function handlePost(e) {
     e.preventDefault();

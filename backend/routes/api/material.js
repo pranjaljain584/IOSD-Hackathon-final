@@ -33,7 +33,7 @@ router.post(
           if (req.file) {
             // console.log( "req.file.path  " , req.file.path);
             // console.log(" material path ",Material.materialPath);
-            filepath = Material.materialPath + '/' + req.file.path;
+            filepath = req.file.path;
           }
 
           console.log(' file path : ', filepath);

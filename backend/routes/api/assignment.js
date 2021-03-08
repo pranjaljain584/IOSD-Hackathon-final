@@ -91,6 +91,9 @@ router.post("/submit",auth,async(req,res)=>{
       "completedAssignments":assignment._id
     }}
   )
+  
+  await User.update({_id:req.user.id},
+    {})
 
     res.json("success");
 

@@ -116,7 +116,7 @@ export default function SignInSide() {
                         buttonColor={'#000'}
                         icon={studentLogo}
                         title={"Register As Student"}
-                        form={ <RegisterComponent2 className={classes.paper} isTeacher={false} logo={studentLogo} />}
+                        form={ <RegisterComponent className={classes.paper} isTeacher={false} logo={studentLogo} />}
                     />
                 </Grid>
             </Grid>

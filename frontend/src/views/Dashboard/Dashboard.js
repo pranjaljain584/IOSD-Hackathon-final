@@ -45,6 +45,8 @@ export function Dashboard(props) {
   const [myclasses,setMyclasses]=useState([]);
   const [assignments, setAssignments]=useState([]) ;
   const [student,setStudent]=useState(false);
+  const [progress,setProgress]=useState([]);
+  let i=0;
 
   useEffect(()=>{
     setStudent(props.auth.isStudent);
@@ -81,6 +83,12 @@ export function Dashboard(props) {
     }).catch(err=>console.log(err));
 
 
+    axios.get('http://localhost:5000/api/progress',config)
+        .then(response=>{
+          console.log(response.data);
+          setProgress(response.data);
+        })
+
   },[props.auth.isStudent]);
 
   console.log('IsStudent ',props.auth.isStudent,' & state : ',student);
@@ -115,7 +123,7 @@ export function Dashboard(props) {
                       <br />
                       <h3 className={classes.cardTitle}>{element.subject}</h3>
                       <h3 className={classes.cardCategory}>
-                        80 <small>%</small>
+                        {progress[i++]} <small>%</small>
                       </h3>
                     </CardHeader>
                     <CardFooter stats></CardFooter>

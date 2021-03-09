@@ -27,8 +27,12 @@ export default function TypographyPage() {
     title:{
       text: "Your Activity over the Past week"
     },
+    axisX:{
+      title:"Days",
+    },
     axisY: {
-      includeZero: true
+      includeZero: true,
+      title:"Hours"
     },
     data: [{
       type: "column", //change type to bar, line, area, pie, etc
@@ -36,7 +40,7 @@ export default function TypographyPage() {
       indexLabelFontColor: "#5A5757",
       indexLabelPlacement: "outside",
       dataPoints: [
-        { x: 10, y: 71 },
+        { x: 10, y: 71, label:'Monday' },
         { x: 20, y: 55 },
         { x: 30, y: 50 },
         { x: 40, y: 65 },
@@ -48,7 +52,7 @@ export default function TypographyPage() {
         { x: 100, y: 60 },
         { x: 110, y: 21 },
         { x: 120, y: 49 },
-        { x: 130, y: 36 }
+        { x: 'Sunday', y: 36 }
       ]
     }]
   }

@@ -64,14 +64,11 @@ const Classroom = (props) => {
       />}
       
       {studyMaterial.map(( smat , key ) => {
-        const splitPath = smat.material.split('\\');
-        const path = splitPath[splitPath.length - 1];
         return (
           <StudyMaterialList
             key={key}
             text={smat.text}
-            material={`${APIURL}/${path}`}
-            fileUrl={smat.fileUrl}
+            material={`http://localhost:5000/${smat.material}`}
             subject={subject}
             teacher={teacher}
           />

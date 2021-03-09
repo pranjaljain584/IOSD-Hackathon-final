@@ -18,9 +18,6 @@ const MaterialSchema = new Schema(
     classroom: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Classroom',
-    },
-    fileUrl:{
-      type:String
     }
   },
   {
@@ -30,14 +27,11 @@ const MaterialSchema = new Schema(
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // cb is callback fn
-    console.log("*********" , file) ;
-    cb(null, path.join(__dirname, '..', MATERIAL_PATH)); //this is the exact path where file is going to be stored
-    //cb(null, path.join(__dirname, '/uploads/'));
-    // relative to current position
+     cb(null, 'uploads/classroom/material'); //this is the exact path where file is going to be stored
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now());
+    const arr = file.originalname.split('.');
+    cb(null, file.fieldname + '-' + Date.now()+ '.' + arr[arr.length - 1]);
   },
 });
 

@@ -26,10 +26,13 @@ function createData(Rank,  Name, Score) {
 const useStyles = makeStyles({
     root: {
         width: '80%',
+        marginBottom: 25 ,
+        marginLeft:18,
     },
     container: {
         maxHeight: 440,
     },
+
 });
 
 

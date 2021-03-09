@@ -42,6 +42,7 @@ router.get('/',auth,async(req,res)=>{
         else
         {
           let percent=100*(completed/total);
+          percent=Math.floor(percent);
           ar.push(percent)
         }
 

@@ -10,6 +10,9 @@ const ScreentimeSchema = new Schema(
     },
     time:[
     {
+        day:{
+          type:Number,
+        },
         second:{
           type:Number
         },
@@ -18,13 +21,12 @@ const ScreentimeSchema = new Schema(
         },
         hour:{
           type:Number
+        },
+        date:{
+          type:String,
         }
     }
-  ],
-  date:{
-    type:Date,
-    default:Date.now()
-  }
+  ]
   },
   {
     timestamps: true,

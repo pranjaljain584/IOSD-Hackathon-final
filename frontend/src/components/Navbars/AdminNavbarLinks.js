@@ -25,10 +25,15 @@ export function AdminNavbarLinks(props) {
         },
     }
     const body={
+      day:props.day,
       second:props.sec,
       minute:props.min,
-      hour:props.hr
+      hour:props.hr,
+      date:props.date
     }
+
+    //console.log(body);
+
     axios.post("http://localhost:5000/api/screentime",body,config)
       .then(response=>{
         console.log(response.data);

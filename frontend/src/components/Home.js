@@ -43,7 +43,7 @@ class Home extends Component {
                 >
                   Register
                 </Button>
-                <Button component={Link} to='/Login' variant="contained"  size='large'
+                <Button component={Link} to='/Login' variant="outlined"  size='large'
                         style={{textTransform: 'none', textDecoration: 'none', color:'white', backgroundColor:'#185ABC'}}
 
                 >

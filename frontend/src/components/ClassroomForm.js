@@ -82,7 +82,7 @@ export default function ClassroomForm(props) {
     <div>
       <MuiThemeProvider theme={theme}>
         <div className={classes.rootDiv}>
-          <Card className={classes.root}>
+          <Card className={classes.root} elevation={0}>
             <CardContent>
               <TextField
                 id='filled-textarea'

@@ -17,6 +17,7 @@ const Classroom = (props) => {
   const [classId, setClass] = useState('');
   const [studyMaterial , setStudyMaterial] = useState([]);
   const [teacher,setTeacher] = useState("") ;
+  const [code,setCode]=useState("");
   const APIURL = 'http://localhost:3000';
 
   useEffect(() => {
@@ -26,9 +27,9 @@ const Classroom = (props) => {
     setStudent(location.state.isStudent);
     setClass(location.state.classid);
 
-    if(!location.state.isStudent){
-      setTeacher(location.state.name) ;
-    }
+    // if(!location.state.isStudent){
+    //   setTeacher(location.state.name) ;
+    // }
 
     const config = {
       headers: {
@@ -45,25 +46,36 @@ const Classroom = (props) => {
       })
       .catch((err) => console.log(err));
 
+    axios.get(`http://localhost:5000/api/classroom/desc/${location.state.classid}`,config)
+      .then(response=>{
+        console.log(response.data);
+        if(response.data.length==2)
+        {
+          setCode(response.data[0]);
+          setTeacher(response.data[1]);
+        }
+      })
+
   }, []);
 
- 
+
   console.log("material array ----->>>" , studyMaterial) ;
 
   return (
     <div>
-      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20}}>
+      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10}}>
       <h1>{subject}</h1>
       {student ? null : (
         <AssignmentForm classid={location.state.classid} sub={subject} />
       )}
       </div>
-      {student ? null : <ClassroomForm 
+      <p>Class code : {code}</p>
+      {student ? null : <ClassroomForm
         student={student}
         subject={subject}
         classId={classId}
       />}
-      
+
       {studyMaterial.map(( smat , key ) => {
         return (
           <StudyMaterialList
@@ -75,7 +87,7 @@ const Classroom = (props) => {
           />
         );
       })}
-      
+
     </div>
   );
   //   }
@@ -97,7 +109,7 @@ export default Classroom;
   // }
 
   // function handlePost(e) {
-    
+
   //   e.preventDefault();
 
   //   const config2 = {

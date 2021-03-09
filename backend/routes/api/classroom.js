@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const Classroom = require('../../models/classroom');
 const User = require('../../models/User');
 const Assignment = require('../../models/assignment');
+const Teacher = require("../../models/teacher");
 
 //Create Classroom
 router.post('/',
@@ -120,6 +121,27 @@ router.post("/leaderboard",auth,async(req,res)=>{
     })
 
     res.json(arr);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("server error!");
+  }
+});
+
+router.get('/desc/:id',auth,async(req,res)=>{
+  try {
+    const c = await Classroom.findOne({_id:req.params.id})
+    //console.log(c.teacher);
+    let ar=[];
+    if(c)
+      ar.push(c.code);
+    const t = await Teacher.findOne({_id:c.teacher})
+    //console.log(t);
+    if(t)
+      ar.push(t.name);
+    else
+      ar.push('No teacher');
+    res.json(ar);
 
   } catch (error) {
     console.log(error);

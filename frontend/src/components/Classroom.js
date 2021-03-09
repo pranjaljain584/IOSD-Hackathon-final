@@ -52,11 +52,12 @@ const Classroom = (props) => {
 
   return (
     <div>
+      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20}}>
       <h1>{subject}</h1>
       {student ? null : (
         <AssignmentForm classid={location.state.classid} sub={subject} />
       )}
-
+      </div>
       {student ? null : <ClassroomForm 
         student={student}
         subject={subject}

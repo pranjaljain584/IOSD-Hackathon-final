@@ -79,6 +79,7 @@ export default function Table2(props) {
         setPage(0);
     };
 
+    
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
@@ -90,7 +91,9 @@ export default function Table2(props) {
 
                                     key={column.id}
                                     align={column.align}
-                                    style={{ minWidth: column.minWidth, backgroundColor: 'black', color: 'white' }}
+                                    style={{ minWidth: column.minWidth,
+                                        backgroundColor: '#e37f5b',
+                                        color: 'white' }}
                                 >
                                     {column.label}
                                 </TableCell>

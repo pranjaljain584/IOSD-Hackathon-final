@@ -63,31 +63,40 @@ const Classroom = (props) => {
 
   return (
     <div>
-      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10}}>
-      <h1>{subject}</h1>
-      {student ? null : (
-        <AssignmentForm classid={location.state.classid} sub={subject} />
-      )}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: 10,
+        }}
+      >
+        <h1>{subject}</h1>
+        {student ? null : (
+          <AssignmentForm classid={location.state.classid} sub={subject} />
+        )}
       </div>
       <p>Class code : {code}</p>
-      {student ? null : <ClassroomForm
-        student={student}
-        subject={subject}
-        classId={classId}
-      />}
+      {student ? null : (
+        <ClassroomForm student={student} subject={subject} classId={classId} />
+      )}
 
-      {studyMaterial.map(( smat , key ) => {
-        return (
-          <StudyMaterialList
-            key={key}
-            text={smat.text}
-            material={`http://localhost:5000/${smat.material}`}
-            subject={subject}
-            teacher={teacher}
-          />
-        );
-      })}
-
+      {studyMaterial.length > 0 ? (
+        studyMaterial.map((smat, key) => {
+          return (
+            <StudyMaterialList
+              key={key}
+              text={smat.text}
+              material={`http://localhost:5000/${smat.material}`}
+              subject={subject}
+              teacher={teacher}
+            />
+          );
+        })
+      ) : (
+        <div style={({ marginTop: 200 }, { color: 'red' })}>
+          <h4>No Posts to Show </h4>{' '}
+        </div>
+      )}
     </div>
   );
   //   }

@@ -1,79 +1,105 @@
-import React, { useEffect } from "react";
-import {CanvasJSChart} from 'canvasjs-react-charts'
-import axios from "axios";
-// @material-ui/core components
-// import { makeStyles } from "@material-ui/core/styles";
-// core components
-// import Quote from "components/Typography/Quote.js";
-// import Muted from "components/Typography/Muted.js";
-// import Primary from "components/Typography/Primary.js";
-// import Info from "components/Typography/Info.js";
-// import Success from "components/Typography/Success.js";
-// import Warning from "components/Typography/Warning.js";
-// import Danger from "components/Typography/Danger.js";
-// import Card from "components/Card/Card.js";
-// import CardHeader from "components/Card/CardHeader.js";
-// import CardBody from "components/Card/CardBody.js";
+import React, { useEffect, useState } from 'react';
+import { CanvasJSChart } from 'canvasjs-react-charts';
+import axios from 'axios';
 var Component = React.Component;
 var CanvasJSReact = require('./canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
 // var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-// const data=[];
-// data.push();
-
 export default function TypographyPage() {
-  useEffect(()=>{
-    const config={headers:{
-      'Content-Type':'application/json',
-      'x-auth-token':localStorage.token,
+  // const [data2, setData] = useState([]);
+  var data2 = [];
 
-    }
-  }
-  axios.get('http://localhost:5000/api/screentime/timeline',config)
-  .then(res=>{console.log("*******",res.data)})
-  .catch(err=>{console.log(err)})
-  }
-  
-  )
+  let hashmap = new Map([
+    ['01', 'January'],
+    ['02', 'February'],
+    ['03', 'March'],
+    ['04', 'April'],
+    ['05', 'May'],
+    ['06', 'June'],
+    ['07', 'July'],
+    ['08', 'August'],
+    ['09', 'September'],
+    ['10', 'October'],
+    ['11', 'November'],
+    ['12', 'December'],
+  ]);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': localStorage.token,
+      },
+    };
+    axios
+      .get('http://localhost:5000/api/screentime/timeline', config)
+      .then((res) => {
+        for (let i = 0; i < res.data.length; i++) {
+          const d = res.data[i].date;
+          const s = d.split('/');
+          // console.log('s ', s);
+          let k = hashmap.get(s[1]);
+          s[1] = k;
+          let temp = s[0];
+          s[0] = s[1];
+          s[1] = temp;
+          let final = s.join(' ');
+          let y = res.data[i].hour * 60 + res.data[i].minute;
+          let o = {
+            x: new Date(`${final}`),
+            y: y,
+          };
+          data2.push(o);
+
+          // setData((prevState) => [...prevState, o]);
+
+          // console.log(final);
+        }
+
+        console.log('----', data2);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const options = {
+    theme: 'light2',
     animationEnabled: true,
     exportEnabled: true,
-    theme: "light2", //"light1", "dark1", "dark2"
-    title:{
-      text: "Your Activity over the Past week"
-    },
-    axisX:{
-      title:"Days",
+    title: {
+      text: 'Time Spent on Paathshala',
     },
     axisY: {
-      includeZero: true,
-      title:"Minutes"
+      title: 'Time in minutes',
     },
-    data: [{
-      type: "column", //change type to bar, line, area, pie, etc
-      //indexLabel: "{y}", //Shows y value on all Data Points
-      indexLabelFontColor: "#5A5757",
-      indexLabelPlacement: "outside",
-      dataPoints: [
-        { x:10, y: 71, label:'Monday' },
-        { x:20, y: 55, label:'Tuesday'},
-        { x:40,  y: 65, label: 'Wednesday' },
-        {  y: 68 , label:'Thursday'},
-        {  y: 92, label:"Friday" },
-        {  y: 60,  label:'Saturday'},
-        {  y: 49, label:'Sunday' },
-      ]
-    }]
-  }
-  
+    data: [
+      {
+        type: 'area',
+        xValueFormatString: 'DDDD',
+        // yValueFormatString: '#,##0.## Minutes',
+        dataPoints: 
+        data2
+        // [
+          // { x: new Date(`March ${9} , 2021`), y: 2.6 },
+          // { x: new Date(2015, 0), y: 5.4 },
+          // { x: new Date(2014, 0), y: 1.3 },
+          // { x: new Date(2013, 0), y: 4.5 },
+          // { x: new Date(2012, 0), y: 2.9 },
+          // { x: new Date(2011, 0), y: 3.2 },
+        // ],
+        ,
+      },
+    ],
+  };
+
   return (
     <div>
-      <CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
-    
+      <CanvasJSChart
+        options={options}
+        /* onRef={ref => this.chart = ref} */
+      />
+      {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+    </div>
   );
 }

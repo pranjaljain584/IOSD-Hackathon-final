@@ -39,7 +39,9 @@ class Home extends Component {
               </p>
               <div className="button-container">
                 <Button component={Link} to='/Register' variant="contained"  size='large'
-                        style={{textTransform: 'none', textDecoration: 'none', color:'white', backgroundColor:'#185ABC'}}
+                        style={{textTransform: 'none', textDecoration: 'none', color:'white',
+                          backgroundColor:'#185ABC', marginRight: "50px",
+                        }}
                 >
                   Register
                 </Button>

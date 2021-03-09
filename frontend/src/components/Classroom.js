@@ -17,6 +17,7 @@ const Classroom = (props) => {
   const [classId, setClass] = useState('');
   const [studyMaterial , setStudyMaterial] = useState([]);
   const [teacher,setTeacher] = useState("") ;
+  const APIURL = 'http://localhost:3000';
 
   useEffect(() => {
     console.log("Location--->>>",location);
@@ -63,13 +64,15 @@ const Classroom = (props) => {
       />}
       
       {studyMaterial.map(( smat , key ) => {
-        return <StudyMaterialList 
-          key={key}
-          text={smat.text}
-          fileUrl={smat.fileUrl}
-          subject={subject}
-          teacher={teacher}
-        />;
+        return (
+          <StudyMaterialList
+            key={key}
+            text={smat.text}
+            material={`http://localhost:5000/${smat.material}`}
+            subject={subject}
+            teacher={teacher}
+          />
+        );
       })}
       
     </div>

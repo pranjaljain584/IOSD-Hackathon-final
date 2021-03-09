@@ -15,13 +15,15 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Resource from './Resource';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth:850,
     borderRadius: 10,
     minHeight:130,
-    marginBottom:20,
+    marginBottom:15,
+    marginTop:10,
   },
   media: {
     height: 0,
@@ -48,13 +50,12 @@ const useStyles = makeStyles((theme) => ({
 export default function StudyMaterialList(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const {text ,teacher , fileUrl} = props
+  const {text ,teacher , material} = props ;
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-//   console.log("List Materal" , material) ;
 
   return (
     <div
@@ -68,13 +69,19 @@ export default function StudyMaterialList(props) {
             </Avatar>
           }
           title={teacher ? teacher : 'Teacher Name'}
-          //   title={teacher}
         />
         <CardContent className={classes.cardContent}>
           <Typography variant='body2' color='textSecondary' component='p'>
             {text}
           </Typography>
-          <a href={fileUrl}> pdf</a>
+          <a
+            href={material}
+            target='_blank'
+            key={material}
+            alt={material}
+          >
+            <Resource />
+          </a>
         </CardContent>
       </Card>
     </div>

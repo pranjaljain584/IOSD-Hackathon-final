@@ -28,7 +28,6 @@ export default function ClassroomForm(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [text, setText] = useState('');
   const [file, setFile] = useState(null);
-  const [fileUrl , setUrl] = useState() ;
 
   const handleExpandClick = (val) => {
     setExpanded(val);
@@ -46,12 +45,13 @@ export default function ClassroomForm(props) {
     setText(e.target.value);
   }
 
-  function handleFileChange(e) {
+
+  const handleFileChange = async (e) => {
     // console.log('TARGET->>>>>', e);
     setFile(e.target.files[0]);
-    setUrl(URL.createObjectURL(e.target.files[0]));
 
   }
+
 
   function handlePost(e) {
     e.preventDefault();
@@ -67,12 +67,13 @@ export default function ClassroomForm(props) {
     data.append('material', file);
     data.append('text', text);
     data.append('id', classId);
-    data.append('fileUrl',fileUrl) ;
 
     axios
       .post('http://localhost:5000/api/material', data, config2)
       .then((response) => {
         console.log(response.data);
+        setExpanded(false);
+
       })
       .catch((err) => console.log(err));
   }

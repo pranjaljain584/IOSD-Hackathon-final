@@ -77,7 +77,6 @@ export default function CreateClass() {
           .then((response) => {
             console.log(response.data);
             setClassCode(response.data.code) ;
-            //swal("New Classroom created").then(()=>window.location.href="/admin/dashboard");
           }).catch(err=>console.log(err));
     }
 
@@ -109,7 +108,7 @@ export default function CreateClass() {
                     <DialogContent className={classes.content}>
                         {classCode? <React.Fragment>
                           <div>
-                          `Code : ${classCode}`
+                          {`Code : ${classCode}`}
                           <br />
                           <Button variant="contained" color="success" onClick={(e)=>{
                             window.location.href="/admin/dashboard"

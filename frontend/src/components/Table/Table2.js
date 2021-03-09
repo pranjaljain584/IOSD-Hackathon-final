@@ -79,10 +79,11 @@ export default function Table2(props) {
         setPage(0);
     };
 
-    
+
     return (
+        <div>
+            <h1 style={{marginLeft: "15px"}}>{tableData[0]?tableData[0].subject:""}</h1>
         <Paper className={classes.root}>
-        <h1>{tableData[0]?tableData[0].subject:""}</h1>
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
@@ -129,6 +130,7 @@ export default function Table2(props) {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </Paper>
+        </div>
     );
 }
 

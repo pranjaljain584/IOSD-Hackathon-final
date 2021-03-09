@@ -1,12 +1,13 @@
 import React from "react";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import {createMuiTheme, makeStyles, MuiThemeProvider} from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
+import TextField from '@material-ui/core/TextField';
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
@@ -34,12 +35,21 @@ const styles = {
   }
 };
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#185ABC',
+    },
+  },
+});
+
 const useStyles = makeStyles(styles);
 
  function UserProfile(props) {
   const classes = useStyles();
-  console.log(props.auth.user);
+  console.log("user***", props.auth.user);
   return (
+      <MuiThemeProvider theme={theme}>
     <div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
@@ -50,46 +60,29 @@ const useStyles = makeStyles(styles);
             </CardHeader>
             <CardBody>
               <GridContainer>
-                {/* <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="School/University"
-                    id="schoolNamed"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: true
-                    }}
-                  />
-                </GridItem> */}
-                {/* <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    labelText="Username"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem> */}
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Email address"
+                <GridItem xs={12} sm={12} md={6}>
+                  <TextField
+                      style={{marginBottom : "20px", color: "#1976D2"}}
+                    label="Email address"
+                    defaultValue={props.auth.user.email}
+                    value={props.auth.user.email}
+                    disabled
+                    variant="outlined"
                     id="email-address"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
+                      fullWidth
+
                     
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Name"
+                  <TextField
+                    label="Name"
+                    defaultValue={props.auth.user.name}
                     id="name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
+                    variant="outlined"
+                    fullWidth
                   />
                 </GridItem>
                 
@@ -144,7 +137,7 @@ const useStyles = makeStyles(styles);
         <GridItem xs={12} sm={12} md={4}>
           <Card profile>
             <CardAvatar profile>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
+              <a href={props.auth.user.avatar} onClick={e => e.preventDefault()}>
                 <img src={avatar} alt="..." />
               </a>
             </CardAvatar>
@@ -162,6 +155,7 @@ const useStyles = makeStyles(styles);
         </GridItem>
       </GridContainer>
     </div>
+        </MuiThemeProvider >
   );
 }
 

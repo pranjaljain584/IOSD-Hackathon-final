@@ -81,7 +81,6 @@ export default function Table2(props) {
 
     return (
         <Paper className={classes.root}>
-            {/*<h1>{props.classId.subject}</h1>*/}
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

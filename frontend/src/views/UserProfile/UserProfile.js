@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import { connect } from "react-redux";
 import avatar from "assets/img/faces/genericface.png";
 
 const styles = {
@@ -36,8 +36,9 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function UserProfile() {
+ function UserProfile(props) {
   const classes = useStyles();
+  console.log(props.auth.user);
   return (
     <div>
       <GridContainer>
@@ -77,6 +78,7 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    
                   />
                 </GridItem>
               </GridContainer>
@@ -162,3 +164,11 @@ export default function UserProfile() {
     </div>
   );
 }
+
+function mapStateToProps(state){
+  return {
+    auth:state.auth
+  }
+}
+
+export default connect(mapStateToProps)(UserProfile);

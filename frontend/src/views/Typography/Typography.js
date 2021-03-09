@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {CanvasJSChart} from 'canvasjs-react-charts'
+import axios from "axios";
 // @material-ui/core components
 // import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -17,10 +18,24 @@ var Component = React.Component;
 var CanvasJSReact = require('./canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
 // var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-Data=
 
+// const data=[];
+// data.push();
 
 export default function TypographyPage() {
+  useEffect(()=>{
+    const config={headers:{
+      'Content-Type':'application/json',
+      'x-auth-token':localStorage.token,
+
+    }
+  }
+  axios.get('http://localhost:5000/api/screentime/timeline',config)
+  .then(res=>{console.log("*******",res.data)})
+  .catch(err=>{console.log(err)})
+  }
+  
+  )
   const options = {
     animationEnabled: true,
     exportEnabled: true,
@@ -41,19 +56,13 @@ export default function TypographyPage() {
       indexLabelFontColor: "#5A5757",
       indexLabelPlacement: "outside",
       dataPoints: [
-        {  y: 71, label:'Monday' },
-        { x: 20, y: 55, label:'Tuesday'},
-        // { x: 30, y: 50, label: 'Wednesday' },
-        { x: 40, y: 65, label: 'Wednesday' },
-        // { x: 50, y: 71 },
-        { x: 60, y: 68 , label:'Thursday'},
-        // { x: 70, y: 38 },
-        { x: 80, y: 92, label:"Friday" },
-        // { x: 90, y: 54 },
-        { x: 100, y: 60,  label:'Saturday'},
-        // { x: 110, y: 21 },
-        { x: 120, y: 49, label:'Sunday' },
-        // { x: 'Sunday', y: 36 }
+        { x:10, y: 71, label:'Monday' },
+        { x:20, y: 55, label:'Tuesday'},
+        { x:40,  y: 65, label: 'Wednesday' },
+        {  y: 68 , label:'Thursday'},
+        {  y: 92, label:"Friday" },
+        {  y: 60,  label:'Saturday'},
+        {  y: 49, label:'Sunday' },
       ]
     }]
   }

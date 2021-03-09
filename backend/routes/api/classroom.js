@@ -149,4 +149,31 @@ router.get('/desc/:id',auth,async(req,res)=>{
   }
 })
 
+router.get('/joinedstudents/:id',auth,async(req,res)=>{
+  try {
+    const c = await Classroom.findOne({_id:req.params.id});
+    if(!c)
+      return res.json("No class");
+
+    let ar=[];
+    for(let i=0;i<c.joinedStudents.length;i++)
+    {
+      const u = await User.findOne({_id:c.joinedStudents[i]});
+      if(u)
+      {
+        ar.push({
+          name:u.name,
+          email:u.email
+        })
+      }
+    }
+
+    res.json(ar);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+})
+
 module.exports=router;

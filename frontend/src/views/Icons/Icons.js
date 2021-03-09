@@ -80,7 +80,29 @@ export function Icons(props) {
         {student ? 'Your due Assignments' : 'Assignments assigned by you'}
       </h1>
       <GridContainer>
-        {assignments.length > 0 ? (
+        {!student && (
+          <GridItem xs={12} sm={12} md={12}>
+            <Card>
+              <CardHeader color='danger'>
+                <h4 className={classes.cardTitleWhite}>Assignments</h4>
+                <p className={classes.cardCategoryWhite}>
+                  List of{' '}
+                  {student
+                    ? 'your due Assignments'
+                    : 'assignments assigned by you'}
+                </p>
+              </CardHeader>
+              <CardBody>
+                <Table
+                  tableHeaderColor='danger'
+                  tableHead={['ID', 'Name', 'Subject', 'Due Date', 'Respond']}
+                  tableData={teacherAssignments}
+                />
+              </CardBody>
+            </Card>
+          </GridItem>
+        )}
+        {student && (
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color='danger'>
@@ -101,7 +123,7 @@ export function Icons(props) {
               </CardBody>
             </Card>
           </GridItem>
-        ) : null}
+        )}
       </GridContainer>
     </div>
   );

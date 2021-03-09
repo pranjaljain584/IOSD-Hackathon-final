@@ -79,6 +79,7 @@ export default function Table2(props) {
         setPage(0);
     };
 
+    
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>

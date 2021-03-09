@@ -10,7 +10,6 @@ import Store from "@material-ui/icons/Store";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/Table.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
@@ -30,7 +29,6 @@ export function Dashboard(props) {
   const classes = useStyles();
   const [joinedClasses,setJoinedClasses]=useState([]);
   const [myclasses,setMyclasses]=useState([]);
-  const [assignments, setAssignments]=useState([]) ;
   const [student,setStudent]=useState(false);
   const [progress,setProgress]=useState([]);
   let i=0;
@@ -61,14 +59,6 @@ export function Dashboard(props) {
             setJoinedClasses(response.data);
           })
     }
-
-
-    axios.get('http://localhost:5000/api/assignment' , config )
-    .then(response=>{
-      console.log("**--**",response.data) ;
-      setAssignments(response.data) ;
-    }).catch(err=>console.log(err));
-
 
     axios.get('http://localhost:5000/api/progress',config)
         .then(response=>{
@@ -130,27 +120,6 @@ export function Dashboard(props) {
         </React.Fragment>
       ) : null}
 
-
-      <GridContainer>
-
-        {assignments.length > 0 ? <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color='danger'>
-              <h4 className={classes.cardTitleWhite}>Assigned Assignments</h4>
-              <p className={classes.cardCategoryWhite}>
-                List of Due Assignments
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor='danger'
-                tableHead={['ID', 'Name', 'Subject', 'Due Date', 'Respond']}
-                tableData={assignments}
-              />
-            </CardBody>
-          </Card>
-        </GridItem> : null }
-      </GridContainer>
     </div>
   );
 }

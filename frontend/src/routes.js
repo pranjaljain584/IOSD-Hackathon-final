@@ -70,9 +70,9 @@ const dashboardRoutes = [
     layout: '/admin',
   },
   {
-    path: '/icons',
-    name: 'Icons',
-    icon: BubbleChart,
+    path: '/assignments',
+    name: 'Assignments',
+    icon: 'content_paste',
     component: Icons,
     layout: '/admin',
   },

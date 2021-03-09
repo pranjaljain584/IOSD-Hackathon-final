@@ -17,6 +17,7 @@ var Component = React.Component;
 var CanvasJSReact = require('./canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
 // var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+Data=
 
 
 export default function TypographyPage() {
@@ -32,7 +33,7 @@ export default function TypographyPage() {
     },
     axisY: {
       includeZero: true,
-      title:"Hours"
+      title:"Minutes"
     },
     data: [{
       type: "column", //change type to bar, line, area, pie, etc
@@ -40,19 +41,19 @@ export default function TypographyPage() {
       indexLabelFontColor: "#5A5757",
       indexLabelPlacement: "outside",
       dataPoints: [
-        { x: 10, y: 71, label:'Monday' },
-        { x: 20, y: 55 },
-        { x: 30, y: 50 },
-        { x: 40, y: 65 },
-        { x: 50, y: 71 },
-        { x: 60, y: 68 },
-        { x: 70, y: 38 },
-        { x: 80, y: 92, indexLabel: "Highest" },
-        { x: 90, y: 54 },
-        { x: 100, y: 60 },
-        { x: 110, y: 21 },
-        { x: 120, y: 49 },
-        { x: 'Sunday', y: 36 }
+        {  y: 71, label:'Monday' },
+        { x: 20, y: 55, label:'Tuesday'},
+        // { x: 30, y: 50, label: 'Wednesday' },
+        { x: 40, y: 65, label: 'Wednesday' },
+        // { x: 50, y: 71 },
+        { x: 60, y: 68 , label:'Thursday'},
+        // { x: 70, y: 38 },
+        { x: 80, y: 92, label:"Friday" },
+        // { x: 90, y: 54 },
+        { x: 100, y: 60,  label:'Saturday'},
+        // { x: 110, y: 21 },
+        { x: 120, y: 49, label:'Sunday' },
+        // { x: 'Sunday', y: 36 }
       ]
     }]
   }

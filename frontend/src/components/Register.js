@@ -101,7 +101,7 @@ export default function SignInSide() {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <Grid container component="main" className={classes.root}>
+            <Grid container component="main" className={classes.root} >
                 <CssBaseline />
                 <Grid item xs={6} sm={6} md={6} square  className={clsx(classes.gridItem ,classes.image1)} >
                     <FullScreenDialog

@@ -65,9 +65,29 @@ function StudentResponse(props) {
   const [open, setOpen] = React.useState(false);
   const { name, subject, dueDate } = props;
   const [student, setStudent] = useState(false);
+  const [response , setResponse] = useState("") ; 
+  const [assignmentResponses , setAssignmentResponses] = useState([]) ;
 
   useEffect(() => {
     setStudent(props.auth.isStudent);
+
+    if(!props.auth.isStudent){
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.token,
+          },
+        };
+
+        axios
+          .get(`http://localhost:5000/api/studentresponse/${props.id}`, config)
+          .then((res) => {
+            setAssignmentResponses(res.data);
+            console.log("RESponses--->>>",res.data) ;
+          })
+          .catch((err) => console.log('****', err));
+
+    }
   }, []);
 
   const handleClickOpen = () => {
@@ -82,7 +102,11 @@ function StudentResponse(props) {
   const handleClose2 = () => {
     setOpen(false);
   };
-  
+
+  const onChangeHandler = (e) => {
+    setResponse(e.target.value) ;
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(props.id);
@@ -95,6 +119,23 @@ function StudentResponse(props) {
     const body = {
       id: props.id,
     };
+
+    const body2 = {
+      assignmentid: props.id,
+      text: response
+    };
+
+    axios
+      .post('http://localhost:5000/api/studentresponse', body2, config)
+      .then((res) => {
+        console.log(res.data);
+        setOpen(false);
+        swal('Response Submitted').then(
+          () => (window.location.href = '/admin/dashboard')
+        );
+      })
+      .catch((err) => console.log('****', err));
+
     axios
       .post('http://localhost:5000/api/assignment/submit', body, config)
       .then((res) => {
@@ -190,7 +231,8 @@ function StudentResponse(props) {
                 label='Multiline'
                 multiline
                 rows={4}
-                defaultValue='Default Value'
+                placeholder='Type your answer'
+                onChange={onChangeHandler}
                 variant='outlined'
               />
             </form>
@@ -214,7 +256,29 @@ function StudentResponse(props) {
           onClose={handleClose2}
           TransitionComponent={Transition}
         >
-          hello
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                edge='start'
+                color='inherit'
+                onClick={handleClose}
+                aria-label='close'
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography variant='h6' className={classes.title}>
+                Responses
+              </Typography>
+            </Toolbar>
+          </AppBar>
+
+            {assignmentResponses.length >0 ? assignmentResponses.map((res,key)=>{
+                return (<div>
+                    <h4>{res.name}</h4>
+                    <p>{res.text}</p>
+                </div>);
+            }) : null}
+
         </Dialog>
       )}
     </MuiThemeProvider>

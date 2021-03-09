@@ -34,7 +34,7 @@ class TableList extends Component {
         console.log("%%%%", this.props.auth.user.classes)
         return (
 
-            <div style={{display: 'flex', justifyContent: "center", alignItem: 'center',flexDirection:"column"}}>
+            <div style={{display: 'flex', justifyContent: "center", alignItem: 'center',flexDirection:"column" , marginBottom:'10'}}>
                 {this.state.classes.map((classId)=>(
                     <Table2  classId={classId._id}/>
                 ))}

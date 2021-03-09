@@ -56,7 +56,7 @@ export default function TypographyPage() {
           };
           data2.push(o);
 
-          // setData((prevState) => [...prevState, o]);
+          // setData((prevState) => );
 
           // console.log(final);
         }

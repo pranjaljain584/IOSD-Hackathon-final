@@ -15,21 +15,17 @@ const Classroom = (props) => {
   const [subject, setSubject] = useState('');
   const [student, setStudent] = useState(false);
   const [classId, setClass] = useState('');
-  const [studyMaterial , setStudyMaterial] = useState([]);
-  const [teacher,setTeacher] = useState("") ;
-  const [code,setCode]=useState("");
-  const APIURL = 'http://localhost:3000';
+  const [studyMaterial, setStudyMaterial] = useState([]);
+  const [teacher, setTeacher] = useState('');
+  const [code, setCode] = useState('');
+  const [studentsList, setList] = useState([]);
 
   useEffect(() => {
-    console.log("Location--->>>",location);
+    console.log('Location--->>>', location);
     // console.log(location.state.classid);
     setSubject(location.state.sub);
     setStudent(location.state.isStudent);
     setClass(location.state.classid);
-
-    // if(!location.state.isStudent){
-    //   setTeacher(location.state.name) ;
-    // }
 
     const config = {
       headers: {
@@ -39,27 +35,51 @@ const Classroom = (props) => {
     };
 
     axios
-      .get(`http://localhost:5000/api/material/${location.state.classid}` , config)
+      .get(
+        `http://localhost:5000/api/material/${location.state.classid}`,
+        config
+      )
       .then((res) => {
-        console.log( "Material array --->>" , res.data);
-        setStudyMaterial(res.data) ;
+        console.log('Material array --->>', res.data);
+        setStudyMaterial(res.data);
       })
       .catch((err) => console.log(err));
 
-    axios.get(`http://localhost:5000/api/classroom/desc/${location.state.classid}`,config)
-      .then(response=>{
+    axios
+      .get(
+        `http://localhost:5000/api/classroom/desc/${location.state.classid}`,
+        config
+      )
+      .then((response) => {
         console.log(response.data);
-        if(response.data.length==2)
-        {
+        if (response.data.length == 2) {
           setCode(response.data[0]);
           setTeacher(response.data[1]);
         }
-      })
-
+      });
   }, []);
 
+  const handleStudentsList = () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': localStorage.token,
+      },
+    };
 
-  console.log("material array ----->>>" , studyMaterial) ;
+    axios
+      .get(
+        `http://localhost:5000/api/classroom/joinedstudents/${classId}`,
+        config
+      )
+      .then((response) => {
+        // console.log(response.data);
+        setList(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  console.log('material array ----->>>', studyMaterial);
 
   return (
     <div>
@@ -75,11 +95,12 @@ const Classroom = (props) => {
           <AssignmentForm classid={location.state.classid} sub={subject} />
         )}
       </div>
-      <p>Class code : {code}</p>
+      <p>Class code : {code}</p>{' '}
+      <button onClick={handleStudentsList}>Joined Students</button>
+      
       {student ? null : (
         <ClassroomForm student={student} subject={subject} classId={classId} />
       )}
-
       {studyMaterial.length > 0 ? (
         studyMaterial.map((smat, key) => {
           return (
@@ -93,7 +114,7 @@ const Classroom = (props) => {
           );
         })
       ) : (
-        <div style={({ marginTop: 200 }, { color: 'red' })}>
+        <div style={{ color: 'grey' }}>
           <h4>No Posts to Show </h4>{' '}
         </div>
       )}
@@ -104,62 +125,10 @@ const Classroom = (props) => {
 
 export default Classroom;
 
-  // const [text, setText] = useState('');
-  // const [file, setFile] = useState(null);
-
- // function handleChange(e) {
-  //   setText(e.target.value);
-  // }
-
-  // function handleFileChange(e) {
-  //   // console.log('TARGET->>>>>', e);
-  //   setFile(e.target.files[0]);
-
-  // }
-
-  // function handlePost(e) {
-
-  //   e.preventDefault();
-
-  //   const config2 = {
-  //     headers: {
-  //       // 'Content-Type': 'application/pdf',
-  //       'x-auth-token': localStorage.token,
-  //     },
-  //   };
-
-  //   const data = new FormData();
-  //   data.append('material', file);
-  //   data.append('text' , text) ;
-  //   data.append('id' , classId) ;
-
-  //   axios
-  //     .post('http://localhost:5000/api/material', data, config2)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
-// {
-//   /* {student ? null :<form>
-//         <h3 className='title'>Announce something to your class</h3>
-//         <input
-//           placeholder='Start typing'
-//           type='text'
-//           name='announcement'
-//           // required='true'
-//           onChange={handleChange}
-//         />
-
-//         <input
-//           onChange={(e) => handleFileChange(e)}
-//           type='file'
-//           id='uploadedFile'
-//         />
-
-//         <button class='button' onClick={handlePost}>
-//           Post
-//         </button>
-//       </form>} */
-// }
+// {studentsList.map((s,key)=>{
+//   return (
+//     <div>
+//       <h1>{s.name}</h1>
+//     </div>
+//   )
+// })}

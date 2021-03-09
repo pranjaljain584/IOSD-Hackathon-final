@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const Classroom = require('../../models/classroom');
 const User = require('../../models/User');
 const Assignment = require('../../models/assignment');
+const Teacher = require("../../models/teacher");
 
 router.post('/add', auth, async (req, res) => {
   try {
@@ -21,6 +22,11 @@ router.post('/add', auth, async (req, res) => {
     await newAssignmet.save();
 
     //console.log(" assignment => ",newAssignmet);
+
+    const t = await Teacher.update({_id:req.user.id},{$addToSet:{
+      "assignments":newAssignmet._id
+    }})
+
 
     const c = await Classroom.findOne({ _id: classid });
 
@@ -75,7 +81,7 @@ router.get('/', auth, async (req, res) => {
     console.log('DIFFERENCE', difference);
 
     res.json(difference);
-    
+
   } catch (error) {
     console.log(error);
     res.status(500).send('Server error');
@@ -104,11 +110,39 @@ router.post('/submit', auth, async (req, res) => {
       "completedAssignments":assignment._id
     }}
   )
-  
+
   await User.update({_id:req.user.id},
     {})
 
     res.json("success");
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('server error!');
+  }
+});
+
+router.get('/teacherAssignments',auth,async(req,res)=>{
+  try {
+
+    const t=await Teacher.findOne({_id:req.user.id});
+    if(!t)
+      return res.json("No teacher");
+
+    let ar=[];
+    if(!t.assignments)
+      return res.json(ar);
+
+    for(let i=0;i<t.assignments.length;i++)
+    {
+      const a = await Assignment.findOne({_id:t.assignments[i]});
+      if(a)
+      {
+        ar.push(a);
+      }
+    }
+
+    res.json(ar);
 
   } catch (error) {
     console.log(error);

@@ -20,6 +20,8 @@ const useStyles = makeStyles(styles);
 export function Icons(props) {
   const [assignments, setAssignments] = useState([]);
   const [student, setStudent] = useState(false);
+  const [teacherAssignments,setTeacherassignments]=useState([]);
+
   const classes = useStyles();
   useEffect(() => {
     setStudent(props.auth.isStudent);
@@ -46,14 +48,25 @@ export function Icons(props) {
     //       setJoinedClasses(response.data);
     //     });
     // }
+    if(props.auth.isStudent)
+    {
+      axios
+        .get('http://localhost:5000/api/assignment', config)
+        .then((response) => {
+          console.log('**--**', response.data);
+          setAssignments(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
+    else
+    {
+      axios.get('http://localhost:5000/api/assignment/teacherAssignments', config)
+        .then((response) => {
+          console.log('teacher  ', response.data);
+          setTeacherassignments(response.data);
+        }).catch((er) => console.log(er));
+    }
 
-    axios
-      .get('http://localhost:5000/api/assignment', config)
-      .then((response) => {
-        console.log('**--**', response.data);
-        setAssignments(response.data);
-      })
-      .catch((err) => console.log(err));
 
     // axios.get('http://localhost:5000/api/progress', config).then((response) => {
     //   // console.log(response.data);

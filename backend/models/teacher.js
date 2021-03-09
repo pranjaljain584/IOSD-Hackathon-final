@@ -23,7 +23,11 @@ const TeacherSchema = new Schema(
     isStudent:{
       type:Boolean,
       default:false,
-    }
+    },
+    assignments:[{
+      type:mongoose.Schema.Types.ObjectID,
+      ref:"Assignment"
+    }]
   },
   {
     timestamps: true,

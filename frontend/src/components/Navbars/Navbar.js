@@ -26,6 +26,9 @@ export default function Header(props) {
     hours: 0,
   });
 
+  const [day,setDay]=useState(-1);
+  const [date,setDate]=useState('');
+
   useEffect(() => {
     let isCancelled = false;
 
@@ -57,6 +60,21 @@ export default function Header(props) {
     return () => {
       //final time:
       //console.log(time);
+      if(date==='')
+      {
+        const d=new Date();
+        const s=d.toJSON().slice(0,10).split('-').reverse().join('/')
+        console.log('date ',s);
+        setDate(s);
+      }
+
+      if(day===-1)
+      {
+        const d=new Date();
+        const s=d.getDate();
+        console.log('day  ',s);
+        setDay(s);
+      }
       isCancelled = true;
     };
   }, [time]);
@@ -96,7 +114,7 @@ export default function Header(props) {
       </p>
 
 
-        <AdminNavbarLinks sec={time.seconds} min={time.minutes} hr={time.hours}/>
+        <AdminNavbarLinks sec={time.seconds} min={time.minutes} hr={time.hours} day={day} date={date}/>
         <Hidden mdUp implementation="css">
 
           <IconButton

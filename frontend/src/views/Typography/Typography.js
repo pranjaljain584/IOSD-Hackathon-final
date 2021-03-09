@@ -39,12 +39,16 @@ export default function TypographyPage() {
           const d = res.data[i].date;
           const s = d.split('/');
           // console.log('s ', s);
-          let k = hashmap.get(s[1]);
-          s[1] = k;
+          //let k = hashmap.get(s[1]);
+          //s[1] = k;
           let temp = s[0];
           s[0] = s[1];
           s[1] = temp;
           let final = s.join(' ');
+          let x1=parseInt(s[0]);
+          let x2=parseInt(s[1]);
+          let x3=parseInt(s[2]);
+          console.log('s ',s);
           let y = res.data[i].hour * 60 + res.data[i].minute;
           let o = {
             x: new Date(`${final}`),
@@ -70,15 +74,18 @@ export default function TypographyPage() {
     title: {
       text: 'Time Spent on Paathshala',
     },
+    axisX: {
+      valueFormatString: "DD-MMM"
+    },
     axisY: {
       title: 'Time in minutes',
     },
     data: [
       {
         type: 'area',
-        xValueFormatString: 'DDDD',
+        xValueFormatString: 'DD MMMM YYYY',
         // yValueFormatString: '#,##0.## Minutes',
-        dataPoints: 
+        dataPoints:
         data2
         // [
           // { x: new Date(`March ${9} , 2021`), y: 2.6 },
@@ -88,7 +95,6 @@ export default function TypographyPage() {
           // { x: new Date(2012, 0), y: 2.9 },
           // { x: new Date(2011, 0), y: 3.2 },
         // ],
-        ,
       },
     ],
   };

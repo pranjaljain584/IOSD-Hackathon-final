@@ -9,6 +9,7 @@ var CanvasJS = CanvasJSReact.CanvasJS;
 export default function TypographyPage() {
   // const [data2, setData] = useState([]);
   var data2 = [];
+  const [data,setData]=useState([]);
 
   let hashmap = new Map([
     ['01', 'January'],
@@ -56,7 +57,7 @@ export default function TypographyPage() {
           };
           data2.push(o);
 
-          // setData((prevState) => );
+          setData((prevState) => [...prevState,o]);
 
           // console.log(final);
         }
@@ -71,6 +72,8 @@ export default function TypographyPage() {
     theme: 'light2',
     animationEnabled: true,
     exportEnabled: true,
+    responsive: true,
+    maintainAspectRatio: false,
     title: {
       text: 'Time Spent on Paathshala',
     },
@@ -86,7 +89,7 @@ export default function TypographyPage() {
         xValueFormatString: 'DD MMMM YYYY',
         // yValueFormatString: '#,##0.## Minutes',
         dataPoints:
-        data2
+        data
         // [
           // { x: new Date(`March ${9} , 2021`), y: 2.6 },
           // { x: new Date(2015, 0), y: 5.4 },

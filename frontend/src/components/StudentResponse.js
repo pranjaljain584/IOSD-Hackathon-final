@@ -14,10 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import DialogContent from '@material-ui/core/DialogContent';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent';
 import swal from 'sweetalert';
 import { connect } from 'react-redux';
 
@@ -56,11 +56,22 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     transform: 'translate(-3%, -10%)',
   },
-    card : {
-      width: 500,
-      display: 'flex',
-      flexDirection: 'column',
-    },
+  card : {
+    backgroundColor: '#fff',
+    border: '.08rem solid #000',
+    borderRadius: '0.5rem',
+    margin: 20,
+    width: 500,
+    display : "flex",
+    flexDirection: "flex-row",
+    alignItems: "center"
+  },
+  cardContent : {
+    display : "flex",
+    flexDirection: "flex-row",
+    alignItems: "center",
+    paddingBottom: 0,
+}
 
 }));
 
@@ -70,12 +81,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function StudentResponse(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const { name, subject, dueDate } = props;
   const [student, setStudent] = useState(false);
+  const [response , setResponse] = useState("") ; 
+  const [assignmentResponses , setAssignmentResponses] = useState([]) ;
 
   useEffect(() => {
     setStudent(props.auth.isStudent);
+
+    if(!props.auth.isStudent){
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.token,
+          },
+        };
+
+        axios
+          .get(`http://localhost:5000/api/studentresponse/${props.id}`, config)
+          .then((res) => {
+            setAssignmentResponses(res.data);
+            console.log("RESponses--->>>",res.data) ;
+          })
+          .catch((err) => console.log('****', err));
+
+    }
   }, []);
 
   const handleClickOpen = () => {
@@ -90,7 +121,11 @@ function StudentResponse(props) {
   const handleClose2 = () => {
     setOpen(false);
   };
-  
+
+  const onChangeHandler = (e) => {
+    setResponse(e.target.value) ;
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(props.id);
@@ -103,6 +138,23 @@ function StudentResponse(props) {
     const body = {
       id: props.id,
     };
+
+    const body2 = {
+      assignmentid: props.id,
+      text: response
+    };
+
+    axios
+      .post('http://localhost:5000/api/studentresponse', body2, config)
+      .then((res) => {
+        console.log(res.data);
+        setOpen(false);
+        swal('Response Submitted').then(
+          () => (window.location.href = '/admin/dashboard')
+        );
+      })
+      .catch((err) => console.log('****', err));
+
     axios
       .post('http://localhost:5000/api/assignment/submit', body, config)
       .then((res) => {
@@ -198,7 +250,8 @@ function StudentResponse(props) {
                 label='Multiline'
                 multiline
                 rows={4}
-                defaultValue='Default Value'
+                placeholder='Type your answer'
+                onChange={onChangeHandler}
                 variant='outlined'
               />
             </form>
@@ -211,7 +264,7 @@ function StudentResponse(props) {
               className={classes.submit}
               onClick={submitHandler}
             >
-
+              Submit
             </Button>
           </DialogContent>
         </Dialog>
@@ -222,41 +275,49 @@ function StudentResponse(props) {
           onClose={handleClose2}
           TransitionComponent={Transition}
         >
-          <Card elevation={0}>
-            <CardContent className={classes.card}>
-              <h1>Students Response</h1>
-          <TextField
-              id="standard-textarea"
-              label="name"
-              defaultValue={name}
-              style={{margin: '20px 0 30px 0'}}
-              variant='outlined'
-              fullWidth
-              disabled
-          />
-          <TextField
-                  id="standard-textarea"
-                  label="Subject"
-                  defaultValue={subject}
-                  variant='outlined'
-                  style={{margin: '0px 0 30px 0'}}
-                  fullWidth
-                  disabled
-          />
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                edge='start'
+                color='inherit'
+                onClick={handleClose}
+                aria-label='close'
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography variant='h6' className={classes.title}>
+                Responses
+              </Typography>
+            </Toolbar>
+          </AppBar>
 
-          <TextField
-                  id="standard-textarea"
-                  label="Response"
-                  defaultValue={subject}
-                  style={{margin: '0px 0 30px 0'}}
-                  variant='outlined'
-                  multiline
-                  rows={3}
-                  fullWidth
-                  disabled
-          />
-            </CardContent>
-          </Card>
+            {assignmentResponses.length >0 ? assignmentResponses.map((res,key)=>{
+                return(
+                    <div>
+                      <Card className={classes.card} elevation={0}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography style={{marginRight: 70}}>
+                            Students Name
+                          </Typography>
+                          <Typography>
+                            {res.name}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                      <Card className={classes.card} elevation={0}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography style={{marginRight: 40}}>
+                            Students Response
+                          </Typography>
+                          <Typography>
+                            {res.text}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </div>
+                );
+            }) : null}
+
         </Dialog>
       )}
     </MuiThemeProvider>

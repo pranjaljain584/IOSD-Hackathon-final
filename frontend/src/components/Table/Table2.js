@@ -82,7 +82,7 @@ export default function Table2(props) {
 
     return (
         <div>
-            <h1 style={{marginLeft: "15px"}}>{tableData[0]?tableData[0].subject:""}</h1>
+            <h3 style={{marginLeft: "18px"}}>{tableData[0]?tableData[0].subject:""}</h3>
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">

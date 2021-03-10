@@ -23,6 +23,7 @@ app.use("/api/classroom",require("./routes/api/classroom"));
 app.use('/api/material', require('./routes/api/material'));
 app.use('/api/assignment',require('./routes/api/assignment'));
 app.use('/api/progress',require('./routes/api/progress'));
+app.use('/api/studentresponse',require('./routes/api/studentresponse'));
 
 
 app.use(express.static(path.join(__dirname, 'uploads/classroom/material')));

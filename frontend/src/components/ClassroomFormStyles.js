@@ -30,7 +30,7 @@ export default {
     
   },
   root: {
-    width: '70%',
+    width: '60%',
     borderRadius: '10px',
     // height: '20%',
   },

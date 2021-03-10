@@ -58,9 +58,9 @@ const useStyles = makeStyles(styles);
               <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
               <p className={classes.cardCategoryWhite}>Complete your profile</p>
             </CardHeader>
-            <CardBody>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
+            <CardBody >
+              <GridContainer style={{justifyContent:'end'}} >
+                <GridItem xs={12} sm={12} md={6} >
                   <TextField
                       style={{marginBottom : "20px", color: "#1976D2"}}
                     label="Email address"
@@ -75,7 +75,7 @@ const useStyles = makeStyles(styles);
                   />
                 </GridItem>
               </GridContainer>
-              <GridContainer>
+              <GridContainer style={{justifyContent:'end'}}>
                 <GridItem xs={12} sm={12} md={6}>
                   <TextField
                     label="Name"
@@ -129,7 +129,7 @@ const useStyles = makeStyles(styles);
                 
               </GridContainer>
             </CardBody>
-            <CardFooter>
+            <CardFooter style={{justifyContent:'end'}}>
               <Button color="primary">Update Profile</Button>
             </CardFooter>
           </Card>
@@ -143,10 +143,10 @@ const useStyles = makeStyles(styles);
             </CardAvatar>
             <CardBody profile>
               <h6 className={classes.cardCategory}></h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <h5 className={classes.description}>
-                  Roll Number: 2019XXXXX
-              </h5>
+              {/*<h4 className={classes.cardTitle}>Alec Thompson</h4>*/}
+              {/*<h5 className={classes.description}>*/}
+              {/*    Roll Number: 2019XXXXX*/}
+              {/*</h5>*/}
               {/* <Button color="primary" round>
                 Follow
               </Button> */}

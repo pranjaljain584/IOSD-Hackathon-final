@@ -19,7 +19,7 @@ import Resource from './Resource';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth:850,
+    minWidth:750,
     borderRadius: 10,
     minHeight:130,
     marginBottom:15,

@@ -103,7 +103,7 @@ export default function JoinClass() {
                 >
                     <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}>{"Enter Class Code"}</DialogTitle>
                     <DialogContent className={classes.content}>
-                        <form className={classes.form} noValidate>
+                        <form className={classes.form} noValidate style={{boxShadow: "none"}}>
                             <TextField onChange={handleChange} id="outlined-basic" label="Class Code" variant="outlined" />
                         </form>
 

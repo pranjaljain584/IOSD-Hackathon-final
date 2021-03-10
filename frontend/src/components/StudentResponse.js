@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import DialogContent from '@material-ui/core/DialogContent';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -54,6 +56,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     transform: 'translate(-3%, -10%)',
   },
+  card : {
+    backgroundColor: '#fff',
+    border: '.08rem solid #000',
+    borderRadius: '0.5rem',
+    margin: 20,
+    width: 500,
+    display : "flex",
+    flexDirection: "flex-row",
+    alignItems: "center"
+  },
+  cardContent : {
+    display : "flex",
+    flexDirection: "flex-row",
+    alignItems: "center",
+    paddingBottom: 0,
+}
+
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -273,10 +292,30 @@ function StudentResponse(props) {
           </AppBar>
 
             {assignmentResponses.length >0 ? assignmentResponses.map((res,key)=>{
-                return (<div>
-                    <h4>{res.name}</h4>
-                    <p>{res.text}</p>
-                </div>);
+                return(
+                    <div>
+                      <Card className={classes.card} elevation={0}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography style={{marginRight: 70}}>
+                            Students Name
+                          </Typography>
+                          <Typography>
+                            {res.name}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                      <Card className={classes.card} elevation={0}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography style={{marginRight: 40}}>
+                            Students Response
+                          </Typography>
+                          <Typography>
+                            {res.text}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </div>
+                );
             }) : null}
 
         </Dialog>

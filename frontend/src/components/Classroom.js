@@ -6,10 +6,11 @@ import '../assets/css/announcement.css';
 import axios from 'axios';
 import StudyMaterialList from './StudyMaterialList';
 import ClassroomForm from './ClassroomForm';
+import JoinedStudentList from "../components/JoinedStudentList"
+
 
 const Classroom = (props) => {
   console.log(props);
-
   let location = useLocation();
 
   const [subject, setSubject] = useState('');
@@ -67,6 +68,7 @@ const Classroom = (props) => {
       },
     };
 
+
     axios
       .get(
         `http://localhost:5000/api/classroom/joinedstudents/${classId}`,
@@ -80,6 +82,7 @@ const Classroom = (props) => {
   };
 
   console.log('material array ----->>>', studyMaterial);
+  console.log("****",studentsList)
 
   return (
     <div>
@@ -95,9 +98,11 @@ const Classroom = (props) => {
           <AssignmentForm classid={location.state.classid} sub={subject} />
         )}
       </div>
-      <p>Class code : {code}</p>{' '}
-      <button onClick={handleStudentsList}>Joined Students</button>
-      
+      <div style={{display: "flex", justifyContent: "space-between", marginBottom: 20,}}>
+      <p style={{marginLeft: 10}}>Class code : {code}</p>{' '}
+
+      <JoinedStudentList studentsList={studentsList}/>
+      </div>
       {student ? null : (
         <ClassroomForm student={student} subject={subject} classId={classId} />
       )}
@@ -123,12 +128,7 @@ const Classroom = (props) => {
   //   }
 };
 
+
 export default Classroom;
 
-// {studentsList.map((s,key)=>{
-//   return (
-//     <div>
-//       <h1>{s.name}</h1>
-//     </div>
-//   )
-// })}
+

@@ -105,16 +105,16 @@ export default function CreateClass() {
                     aria-labelledby="responsive-dialog-title"
                 >
                     <DialogTitle id="responsive-dialog-title" style={{textAlign : "center"}}> {classCode ? `Subject: ${subject}` : "Enter Class Name"}</DialogTitle>
-                    <DialogContent className={classes.content}>
+                    <DialogContent className={classes.content} >
                         {classCode? <React.Fragment>
                           <div>
                           {`Code : ${classCode}`}
                           <br />
-                          <Button variant="contained" color="success" onClick={(e)=>{
+                          <Button variant="contained" color="primary" style={{margin: 20}} onClick={(e)=>{
                             window.location.href="/admin/dashboard"
                           }}>OK</Button>
                           </div>
-                          </React.Fragment> : <form className={classes.form} noValidate>
+                          </React.Fragment> : <form className={classes.form} noValidate style={{boxShadow : 'none'}}>
                             <TextField onChange={handleOnChange} id="outlined-basic" label="Class Name" variant="outlined" />
                         </form> }
 

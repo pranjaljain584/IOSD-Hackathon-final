@@ -55,21 +55,20 @@ function App(props) {
   console.log(isAuthenticated);
   return (
     <Router history={hist}>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/Login' component={Login} />
-          <Route path='/Register' component={Register} />
-
-          {props.auth.isAuthenticated === null ? null : (
-            <PrivateRoute
-              path='/admin'
-              component={Admin}
-              isAuthenticated={props.auth.isAuthenticated}
-            />
-          )}
-
-          {/* <Route component={Page404} /> */}
-        </Switch>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/material-dashboard-react' component={Home} />
+        <Route path='/Login' component={Login} />
+        <Route path='/Register' component={Register} />
+        {props.auth.isAuthenticated === null ? null : (
+          <PrivateRoute
+            path='/admin'
+            component={Admin}
+            isAuthenticated={props.auth.isAuthenticated}
+          />
+        )}
+        {/* <Route component={Page404} /> */}
+      </Switch>
     </Router>
   );
 }
@@ -81,13 +80,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(App);
-
-// {/* <Router history={hist}>
-//   <Switch>
-//     <Route exact path='/' component={Home} />
-//     <Route exact path='/Login' component={Login} />
-//     <Route exact path='/Register' component={Register} />
-//     <Route path='/admin' component={Admin} />
-//     {/* <Redirect from="/" to="/admin/dashboard" /> */}
-//   </Switch>
-// </Router> */}

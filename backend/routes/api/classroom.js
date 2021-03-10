@@ -83,6 +83,11 @@ router.post("/leaderboard",auth,async(req,res)=>{
         let total = 0;
         let completed = 0;
 
+        if(!user)
+        {
+          continue;
+        }
+
         for (let j = 0; j < user.assignments.length; j++) {
           const assign = await Assignment.findOne({_id: user.assignments[j]})
           console.log('>>>>>>>', assign);
@@ -112,6 +117,7 @@ router.post("/leaderboard",auth,async(req,res)=>{
           prog = 100 * (completed / total);
         if(!user)
           prog=0;
+        prog=Math.floor(prog);
         const obj = {
           student: user,
           progress: prog,

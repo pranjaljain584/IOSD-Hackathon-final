@@ -19,6 +19,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
 import styles from './ClassroomFormStyles';
 import axios from 'axios';
+import swal from "sweetalert";
 
 const useStyles = makeStyles(styles);
 
@@ -73,7 +74,7 @@ export default function ClassroomForm(props) {
       .then((response) => {
         console.log(response.data);
         setExpanded(false);
-
+        swal("Post Added").then(()=>window.location.href="/admin/dashboard");
       })
       .catch((err) => console.log(err));
   }

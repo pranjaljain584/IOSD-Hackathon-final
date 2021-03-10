@@ -73,6 +73,8 @@ const useStyles = makeStyles((theme) => ({
 
   content : {
     display: "flex",
+    flexDirection: "column",
+    boxShadow: "none"
 
 }
 
@@ -250,25 +252,26 @@ function StudentResponse(props) {
               <TextField
                 style={{ margin: '10px', marginTop: '30px' }}
                 id='outlined-multiline-static'
-                label='Multiline'
+                label='Enter Your Response'
                 multiline
                 rows={4}
                 placeholder='Type your answer'
                 onChange={onChangeHandler}
                 variant='outlined'
               />
+              <Button
+                  type='submit'
+                  fullWidth
+                  variant='contained'
+                  color='primary'
+                  className={classes.submit}
+                  onClick={submitHandler}
+              >
+                Submit
+              </Button>
             </form>
 
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-              onClick={submitHandler}
-            >
-              Submit
-            </Button>
+
           </DialogContent>
         </Dialog>
       ) : (

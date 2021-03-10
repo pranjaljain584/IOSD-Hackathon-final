@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
   root: {
     minWidth: 275,
-    maxWidth: "50%",
+    maxWidth: "100%",
   },
   bullet: {
     display: 'inline-block',
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
   content : {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     boxShadow: "none"
 
 }
@@ -297,11 +297,11 @@ function StudentResponse(props) {
             </Toolbar>
           </AppBar>
           <DialogContent>
-            {assignmentResponses.length >0 ? assignmentResponses.map((res,key)=>{
+            {assignmentResponses.length > 0 ? assignmentResponses.map((res,key)=>{
                 return(
                     <Card className={classes.root} variant="outlined" elevation={10}>
                       <CardContent className={classes.content}>
-                        <CardContent>
+                        <CardContent style={{marginRight: "80px"}}>
                         <Typography className={classes.pos} color="textSecondary">
                           Student's Name
                         </Typography>

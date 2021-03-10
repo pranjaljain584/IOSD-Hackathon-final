@@ -126,7 +126,7 @@ export default function ResponsiveDialog(props) {
               {'Add Assignment'}
             </DialogTitle>
             <DialogContent className={classes.content}>
-              <form className={classes.form} noValidate>
+              <form className={classes.form} noValidate style={{boxShadow : "none"}}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={12}>
                     <TextField

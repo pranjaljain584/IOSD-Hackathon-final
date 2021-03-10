@@ -16,6 +16,8 @@ import Slide from '@material-ui/core/Slide';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent';
 import swal from 'sweetalert';
 import { connect } from 'react-redux';
 
@@ -54,6 +56,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     transform: 'translate(-3%, -10%)',
   },
+    card : {
+      width: 500,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -62,7 +70,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function StudentResponse(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const { name, subject, dueDate } = props;
   const [student, setStudent] = useState(false);
 
@@ -203,7 +211,7 @@ function StudentResponse(props) {
               className={classes.submit}
               onClick={submitHandler}
             >
-              Submit
+
             </Button>
           </DialogContent>
         </Dialog>
@@ -214,7 +222,41 @@ function StudentResponse(props) {
           onClose={handleClose2}
           TransitionComponent={Transition}
         >
-          hello
+          <Card elevation={0}>
+            <CardContent className={classes.card}>
+              <h1>Students Response</h1>
+          <TextField
+              id="standard-textarea"
+              label="name"
+              defaultValue={name}
+              style={{margin: '20px 0 30px 0'}}
+              variant='outlined'
+              fullWidth
+              disabled
+          />
+          <TextField
+                  id="standard-textarea"
+                  label="Subject"
+                  defaultValue={subject}
+                  variant='outlined'
+                  style={{margin: '0px 0 30px 0'}}
+                  fullWidth
+                  disabled
+          />
+
+          <TextField
+                  id="standard-textarea"
+                  label="Response"
+                  defaultValue={subject}
+                  style={{margin: '0px 0 30px 0'}}
+                  variant='outlined'
+                  multiline
+                  rows={3}
+                  fullWidth
+                  disabled
+          />
+            </CardContent>
+          </Card>
         </Dialog>
       )}
     </MuiThemeProvider>

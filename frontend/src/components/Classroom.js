@@ -19,7 +19,6 @@ const Classroom = (props) => {
   const [studyMaterial, setStudyMaterial] = useState([]);
   const [teacher, setTeacher] = useState('');
   const [code, setCode] = useState('');
-  const [studentsList, setList] = useState([]);
 
   useEffect(() => {
     console.log('Location--->>>', location);
@@ -60,29 +59,9 @@ const Classroom = (props) => {
       });
   }, []);
 
-  const handleStudentsList = () => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': localStorage.token,
-      },
-    };
-
-
-    axios
-      .get(
-        `http://localhost:5000/api/classroom/joinedstudents/${classId}`,
-        config
-      )
-      .then((response) => {
-        // console.log(response.data);
-        setList(response.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  
 
   console.log('material array ----->>>', studyMaterial);
-  console.log("****",studentsList)
 
   return (
     <div>
@@ -98,10 +77,16 @@ const Classroom = (props) => {
           <AssignmentForm classid={location.state.classid} sub={subject} />
         )}
       </div>
-      <div style={{display: "flex", justifyContent: "space-between", marginBottom: 20,}}>
-      <p style={{marginLeft: 10}}>Class code : {code}</p>{' '}
-
-      <JoinedStudentList studentsList={studentsList}/>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: 20,
+        }}
+      >
+        <p style={{ marginLeft: 10 }}>Class code : {code}</p>{' '}
+        <JoinedStudentList classId={classId} />
+        
       </div>
       {student ? null : (
         <ClassroomForm student={student} subject={subject} classId={classId} />

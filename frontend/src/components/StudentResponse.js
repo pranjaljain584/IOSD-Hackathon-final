@@ -71,7 +71,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 8,
   },
 
-  content : {
+  contentStudent : {
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "none"
+  },
+
+  contentTeacher : {
     display: "flex",
     flexDirection: "row",
     boxShadow: "none"
@@ -221,7 +227,7 @@ function StudentResponse(props) {
             </Toolbar>
           </AppBar>
           <DialogContent>
-            <form className={classes.content} noValidate>
+            <form className={classes.contentStudent} noValidate>
               <TextField
                 id='Name'
                 label='Name'
@@ -300,7 +306,7 @@ function StudentResponse(props) {
             {assignmentResponses.length > 0 ? assignmentResponses.map((res,key)=>{
                 return(
                     <Card className={classes.root} variant="outlined" elevation={10}>
-                      <CardContent className={classes.content}>
+                      <CardContent className={classes.contentTeacher}>
                         <CardContent style={{marginRight: "80px"}}>
                         <Typography className={classes.pos} color="textSecondary">
                           Student's Name

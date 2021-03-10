@@ -107,7 +107,11 @@ router.post("/leaderboard",auth,async(req,res)=>{
         }
         console.log(total);
         console.log(completed);
-        const prog = 100 * (completed / total);
+        let prog=0;
+        if(total!=0)
+          prog = 100 * (completed / total);
+        if(!user)
+          prog=0;
         const obj = {
           student: user,
           progress: prog,

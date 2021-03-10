@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
     height: '8vh',
+
   },
   content: {
     display: 'flex',
@@ -56,21 +57,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     transform: 'translate(-3%, -10%)',
   },
-  card : {
-    backgroundColor: '#fff',
-    border: '.08rem solid #000',
-    borderRadius: '0.5rem',
-    margin: 20,
-    width: 500,
-    display : "flex",
-    flexDirection: "flex-row",
-    alignItems: "center"
+
+  root: {
+    minWidth: 275,
+    maxWidth: "50%",
   },
-  cardContent : {
-    display : "flex",
-    flexDirection: "flex-row",
-    alignItems: "center",
-    paddingBottom: 0,
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  pos: {
+    marginBottom: 8,
+  },
+
+  content : {
+    display: "flex",
+
 }
 
 }));
@@ -290,34 +293,32 @@ function StudentResponse(props) {
               </Typography>
             </Toolbar>
           </AppBar>
-
+          <DialogContent>
             {assignmentResponses.length >0 ? assignmentResponses.map((res,key)=>{
                 return(
-                    <div>
-                      <Card className={classes.card} elevation={0}>
-                        <CardContent className={classes.cardContent}>
-                          <Typography style={{marginRight: 70}}>
-                            Students Name
-                          </Typography>
-                          <Typography>
-                            {res.name}
-                          </Typography>
+                    <Card className={classes.root} variant="outlined" elevation={10}>
+                      <CardContent className={classes.content}>
+                        <CardContent>
+                        <Typography className={classes.pos} color="textSecondary">
+                          Student's Name
+                        </Typography>
+                        <Typography className={classes.pos} color="textPrimary" variant="h5">
+                          {res.name}
+                        </Typography>
+                      </CardContent>
+                        <CardContent>
+                        <Typography className={classes.pos} color="textSecondary">
+                          Student's Response
+                        </Typography>
+                        <Typography className={classes.pos} color="textPrimary" variant="h5">
+                          {res.text}
+                        </Typography>
                         </CardContent>
-                      </Card>
-                      <Card className={classes.card} elevation={0}>
-                        <CardContent className={classes.cardContent}>
-                          <Typography style={{marginRight: 40}}>
-                            Students Response
-                          </Typography>
-                          <Typography>
-                            {res.text}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </div>
+                      </CardContent>
+                    </Card>
                 );
             }) : null}
-
+              </DialogContent>
         </Dialog>
       )}
     </MuiThemeProvider>
